@@ -1,0 +1,25 @@
+@startuml CFSM stateAlias1 --> stateAlias2 : messageOrCond2 <<stereotype1>>
+autoactivate on
+
+participant App
+participant Cfsm
+participant Mario
+participant SuperMario
+
+App -> Cfsm : process()
+Cfsm -> Mario: onProcess()
+Cfsm <-- Mario
+App <-- Cfsm
+
+App -> Cfsm #FFBBBB: transitionTo(SuperMario) 
+Cfsm -> Mario #FFBBBB: onLleave()
+Cfsm <-- Mario
+Cfsm -> SuperMario #FFBBBB: onEnter()
+Cfsm <-- SuperMario
+
+App <-- Cfsm
+App -> Cfsm : process()
+Cfsm -> SuperMario: onProcess()
+Cfsm <-- SuperMario
+App <-- Cfsm
+@enduml
