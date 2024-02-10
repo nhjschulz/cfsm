@@ -1,0 +1,15 @@
+@startuml CFSM COntext
+state  SomeState
+state OtherState
+
+SomeState : entry/ entry_operations()
+SomeState : process/ cyclic_process_operations()
+SomeState : leave/ leave_operations()
+
+OtherState : entry/ entry_operations()
+OtherState : process/ cyclic_process_operations()
+OtherState : leave/ leave_operations()
+
+SomeState -r-> OtherState : [Event x]
+
+@enduml
