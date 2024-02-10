@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "xlocmon": "c",
-        "dead_mario.h": "c"
+        "dead_mario.h": "c",
+        "unity.h": "c",
+        "string.h": "c"
     }
 }
