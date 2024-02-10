@@ -12,7 +12,7 @@ Cfsm <-- Mario
 App <-- Cfsm
 
 App -> Cfsm #FFBBBB: transitionTo(SuperMario) 
-Cfsm -> Mario #FFBBBB: onLleave()
+Cfsm -> Mario #FFBBBB: onLeave()
 Cfsm <-- Mario
 Cfsm -> SuperMario #FFBBBB: onEnter()
 Cfsm <-- SuperMario

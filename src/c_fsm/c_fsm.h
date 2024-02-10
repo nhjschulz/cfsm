@@ -62,11 +62,12 @@ typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * state);
 typedef void (*cfsm_EventFunction)(struct cfsm_Fsm *state, int eventId);
 typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm *state);
 
+/** CFSM context operations */
 typedef struct cfsm_Fsm {
-    cfsm_TransitionFunction onEnter;
-    cfsm_TransitionFunction onLeave;
-    cfsm_ProcessFunction    onProcess;
-    cfsm_EventFunction      onEvent;
+    cfsm_TransitionFunction onEnter;   /**< operation run on enter    */
+    cfsm_TransitionFunction onLeave;   /**< operation run on leave    */
+    cfsm_ProcessFunction    onProcess; /**< cyclic operations         */
+    cfsm_EventFunction      onEvent;   /**< report event to the state */
 } cfsm_Fsm;
 
 
