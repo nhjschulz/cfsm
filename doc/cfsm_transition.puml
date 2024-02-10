@@ -15,6 +15,8 @@ App -> Cfsm #FFBBBB: transitionTo(SuperMario)
 Cfsm -> Mario #FFBBBB: onLeave()
 Cfsm <-- Mario
 Cfsm -> SuperMario #FFBBBB: onEnter()
+Cfsm <- SuperMario #FFBBBB: update context pointer
+Cfsm --> SuperMario #FFBBBB:
 Cfsm <-- SuperMario
 
 App <-- Cfsm
