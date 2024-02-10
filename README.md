@@ -4,8 +4,6 @@
 
 # CFSM -  A State Pattern Approach for C-Programs
 
-A C-Language implementation pattern for finite state machines
-
 Finite state machines are present in almost every non trivial program.
 Guides on how to implement them are a standard part of many programming
 tutorials. But these tutorials focus mostly around the 
