@@ -41,10 +41,7 @@
 
 #include "mario.h"
 #include "states/small_mario.h"
-#include "states/super_mario.h"
-#include "states/fire_mario.h"
-#include "states/cape_mario.h"
-#include "states/dead_mario.h"
+
 
 /******************************************************************************
  * Macros

@@ -1,0 +1,81 @@
+@startuml State Pattern
+
+skinparam linetype polyline
+'skinparam linetype ortho
+
+package "Mario Example" {
+
+    class Main {
+        - marioFsm : marioFsm
+    }
+
+
+    package states {
+        class SuperMario
+        class FireMario
+        class CapeMario
+        class DeadMario
+        class SmallMario
+    }
+
+    package Mario {
+    enum MarioVariant {
+        SMALL_MARIO
+        SUPER_MARIO
+        CAPE_MARIO
+        FIRE_MARIO
+        DEAD_MARIO
+    }
+
+    enum MarioEvent {
+        MUSHROOM
+        FIREFLOWER
+        FEATHER 
+        MONSTER   
+    }
+    class MarioData  <<singleton>> {
+        - variant : MarioVariant
+        - lifes : int
+        - coins : int
+        +mario_setVariant(v : MarioVariant)
+        +mario_updateCoins(e :MarioEvent);
+        +mario_uprint()
+
+    }
+
+    }
+}
+
+package "CFSM" {
+    class cfsm_Fsm  {
+        +cfsm_init()
+        +cfsm_transitionTo( enterFunc: cfsm_TransitionFunction)
+        +cfsm_process()
+        +cfsm_signalEvent( eventId : int)
+    }
+
+    interface Operations <<interface>> {
+        +onEnter()
+        +onLeave()
+        +onProcess()
+        +onEvent()
+    }
+}
+
+cfsm_Fsm --  Operations
+SuperMario <|-u- Operations
+CapeMario <|-u- Operations
+FireMario <|-u- Operations
+DeadMario <|-u- Operations
+SmallMario <|-u- Operations
+
+states .> Mario : update 
+
+SmallMario <.. Main  
+Main .> cfsm_Fsm : init as SmallMario\nprocessing and\n event signalling 
+
+MarioVariant .l. MarioData
+MarioEvent .r. MarioData
+Main ..> Mario : print
+
+@enduml

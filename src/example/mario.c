@@ -102,7 +102,7 @@ void mario_updateCoins(MarioEvent e)
     switch(e)
     {
         case MUSHROOM:
-            mario.coins += 300;
+            mario.coins += 100;
             break;
 
         case FEATHER:

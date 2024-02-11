@@ -129,4 +129,55 @@ state transition in between.
 
 # The Mario CFSM Example
 
-<b>TODO</b>
+In this chapter we use the CFSM pattern to implement the life cycle of the famous
+Mario computer game character that most people should be familiar with.
+
+## The Mario State Machine
+
+Mario can change his appearance into various different characters to gain
+super powers. He starts as a small Mario without powers. He changes
+to a different appearance with a specific power by collecting items.
+Mario also earns coins by collecting items and gets an additional life
+if he collects more than 5000 of them.
+If an empowered Mario hits a monster, he loses the power and changes
+back to small Mario. If small Mario hits a monster, he loses a life. If 
+no more lives are available, the game ends. 
+
+So we have a fixed set of states (characters) and rules (items) that
+define how to switch between them. This is a FSM, which we can model 
+like this:
+
+![Mario State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_states.puml)
+
+Here are the transitions shown as a table:
+
+| Character  | Item       | Effect            | Coins |
+|------------|------------|-------------------|-------|
+|Small Mario |Mushroom    |Become Super Mario | +100  |
+|Small Mario |Fire Flower |Become Fire Mario  | +200  |
+|Small Mario |Feather     |Become Cape Mario  | +300  |
+|Small Mario |Monster     |Loose a Life       |       |
+|Super Mario |Fire Flower |Become Fire Mario  | +200  |
+|Super Mario |Feather     |Become Cape Mario  | +300  |
+|Super Mario |Monster     |Become Small Mario |       |
+|Fire Mario  |Feather     |Become Cape Mario  | +300  |
+|Fire Mario  |Monster     |Become Small Mario |       |
+|Cape Mario  |Fire Flower |Become Fire Mario  | +200  |
+|Cape Mario |Monster     |Become Small Mario |       |
+
+## Example Implementation using CFSM
+
+The example uses CFSM to implement the Mario state machine in the following
+way:
+  
+  * Each Mario character types become states implemented in an own C-File
+  * The collection of items or the monster hit is modelled as an event
+  * The process operation prints a character specific message
+  * The enter/leave operations print a message to visualize the transitions
+  
+  The main loop of the example implements a small menu where events get
+  fired based on keyboard input to simulate the game.
+
+  The example is designed like this:
+  
+![Mario Example Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_classes.puml)
