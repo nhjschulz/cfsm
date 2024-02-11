@@ -30,11 +30,7 @@ two files into your project.
 CFSM is following the state design pattern without using object oriented
 constructs.
 
-![](https://upload.wikimedia.org/wikipedia/commons/e/ec/W3sDesign_State_Design_Pattern_UML.jpg)
-
-Source: [Wikipedia](https://en.wikipedia.org/wiki/State_pattern)
-by [VanderJoe](https://commons.wikimedia.org/wiki/User:Vanderjoe )
-licensed under [CC BY 4.0](https://creativecommons.org/licenses/by-sa/4.0)
+![State Pattern](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_statepattern.puml)
 
 The state pattern builds on 
 * A context that delegates operations to one of the various state objects,

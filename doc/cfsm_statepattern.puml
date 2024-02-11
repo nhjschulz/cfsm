@@ -1,0 +1,25 @@
+@startuml State Pattern
+
+class Context {
+    -state
+    +operation()
+}
+
+interface State <<interface>> {
+    +operation()
+}
+
+class State1 {
+    +operation()
+}
+
+class State2 {
+    +operation()
+}
+
+Context -r-> "1" State
+State <|-- State1
+State <|-- State2
+
+
+@enduml
