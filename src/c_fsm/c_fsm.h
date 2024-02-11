@@ -58,9 +58,9 @@ extern "C" {
 
 struct cfsm_Fsm;
 
-typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * state);
-typedef void (*cfsm_EventFunction)(struct cfsm_Fsm *state, int eventId);
-typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm *state);
+typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
+typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
+typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
 
 /** CFSM context operations */
 typedef struct cfsm_Fsm {
