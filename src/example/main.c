@@ -67,20 +67,23 @@ int main(int argc, char **argv)
 {
     
     cfsm_Fsm marioFsm;
-    cfsm_init(&marioFsm);
 
     puts ("Mario cfsm example: \n");
 
+    cfsm_init(&marioFsm);
     cfsm_transitionTo(&marioFsm, SmallMario_onEnter);
-    cfsm_process(&marioFsm);
 
     for(;;) 
     {
         int option;
 
+        /* perform process cycle in current CFSM state.*/
+        cfsm_process(&marioFsm);
+
         mario_print(); /* show Mario's data*/
 
-        printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, 4=Monster, 5=none (just process) 0=quit) : ");
+        printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, "
+               "4=Monster, 5=none (just process) 0=quit) : ");
         while ((scanf("%d", &option) != 1) || (option > 5))
         {
             puts("invalid option");
@@ -95,9 +98,6 @@ int main(int argc, char **argv)
         {
             cfsm_signalEvent(&marioFsm, option);
         }
-
-        /* perform process cycle in current CFSM state.*/
-        cfsm_process(&marioFsm);
     }
 
     return 0;

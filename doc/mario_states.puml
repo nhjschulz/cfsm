@@ -6,7 +6,6 @@ state CapeMario
 state FireMario
 state DeadMario
 
-[*] ---> SmallMario
 SmallMario --> CapeMario : Feather
 SmallMario --> FireMario : FireFlower
 SmallMario --> SuperMario : Mushroom
@@ -16,11 +15,13 @@ SuperMario ----> CapeMario : Feather
 SuperMario -> FireMario : FireFlower
 
 CapeMario --> SmallMario : Monster
-
+CapeMario --> FireMario : FireFlower
 FireMario --> SmallMario : Monster
 FireMario --> CapeMario : Feather
 
 SmallMario --> SmallMario: Monster
 SmallMario --> DeadMario : no more lifes
 DeadMario --> [*]
+[*] -r-> SmallMario
+
 @enduml
