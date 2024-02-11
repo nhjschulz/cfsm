@@ -5,25 +5,24 @@
 # CFSM -  A State Pattern Approach for C-Programs
 
 Finite state machines (FSM) are present in almost every non trivial program.
-Guides on how to implement them are a standard part of many programming
-tutorials. But these tutorials focus mostly around the 
+Guides on how to implement them are part of many programming
+tutorials. But these tutorials focus around the 
 [STATE Design Pattern](https://en.wikipedia.org/wiki/State_pattern) 
-for <b>object oriented languages</b> like C++, Java or C#.
+for <b>object oriented languages</b> like C++, Java or C# only.
 
-The CFSM project uses a light weight C-Language approach that is suitable
-for any kind of application, including resource constraint embedded 
-systems on micro controllers.
+The CFSM pattern uses a very light weight approach using  C-Language to implement 
+maintainble state machines according to the STATE design pattern.
 
-This work was inspired by the excellent article
+This work was inspired by this excellent article
 [Patterns in C- Part 2: STATE](https://www.adamtornhill.com/Patterns%20in%20C%202,%20STATE.pdf) from Adam Petersen.
 
 ## Introducing CFSM
 
 This project contains both the CFSM source code and a easy to understand
-example that shows how to use it. It is build using CMake. Integration into
-own projects doesn't rely on CMake. CFSM is a single source file and 
-header file with names c_fsm.h and c_fsm.c only. You only need to add these
-two files into your project. There are no external dependencies.
+example to show how to use it. It is build using CMake. Integration into
+own projects doesn't require CMake. CFSM is a single source file and 
+a header file. There are no external dependencies. Simply add c_fsm.c and
+c_fsm.h to to your project.
 
 ## How It Works
 
@@ -35,13 +34,13 @@ constructs.
 The state pattern builds on 
 * A context that delegates operations to one of various state objects,
   which is currently the active state.
-* A number of states objects that implement the context operations to provide 
-  state dependent behavior of the operations.
+* A number of states objects that implement context operations to provide 
+  state dependent behavior of these operations.
 
 ### The CFSM Context
 
-The CFSM context defines a fixed set of operations. These operations got defined
-with the following UML State diagram in mind that covers a wide range of 
+A CFSM context defines a fixed set of operations. These operations got defined
+with the following UML State diagram in mind. It covers a wide range of 
 use cases:
 
 ![State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_context.puml)
@@ -52,16 +51,16 @@ There are operations to execute
    3) When a cyclic processing in the active state shall take place
    4) When an event is signaled to the FSM
 
-Each of these operations is represented as a function pointer in the FSM
-context data structure. CFSM takes care about calling the leave and enter 
+Each of these operations is represented as a function pointer in the CFSM
+context data structure. CFSM takes care about calling leave and enter 
 operations during a state transition. The cyclic process and event signaling
 gets triggered by the application through CFSM public API. The CFSM context
 structure definition is:
 
 ```C
-typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * state);
-typedef void (*cfsm_EventFunction)(struct cfsm_Fsm *state, int eventId);
-typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm *state);
+typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
+typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
+typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
 
 /** CFSM context operations */
 typedef struct cfsm_Fsm {
@@ -79,19 +78,20 @@ Notes:
    operation. A state that cannot be entered is pointless. 
  * Operations that are not defined in a state are ignored by CFSM.  
  * Supporting "other" operations can be done by adding new, or
-   changing existing functions pointers in the context.
+   changing existing functions pointers in the context. CFSM
+   is primarily an implementation pattern, not as a fixed function library.
 
 ### CFSM States
 
 A CFSM state is a rather light weight concept. It is not implemented as 
-an object or data structure as someone would expect comming from object
+an object or data structure as someone would expect using object
 oriented languages. A state in our C-Language world is just a set of
 functions that are known by the context as operations. 
 
 The only mandatory state function is the enter operation. It is needed
 even if there are no state specific entry actions to perform. It jobs is
-also to update the context function pointers. Below is an example of a 
-set of function that define the SuperMario state:
+to also update the context function pointers. Below is an example of a 
+set of function that define a SuperMario state:
 
 ```C
 static void SuperMario_onProcess(cfsm_Fsm * fsm) { /* ... */}
@@ -111,10 +111,10 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
 
 ### CFSM State Transitions
 
-State transitions are triggered by calling the cfsm_transitionTo()
+State transitions are triggered by calling the ```cfsm_transitionTo()```
 API function. The call can originate either 
 
-1) from the user of the FSM to enter a specific state
+1) from CFSM  usin application to enter a specific state
 2) from inside the state operation handlers
 
 The following interaction diagram shows what happens during a state
@@ -134,7 +134,7 @@ famous Mario computer game character that most people should be familiar with.
 ## The Mario State Machine
 
 Mario can change his appearance into various different characters to gain
-super powers. He starts as a small Mario without powers. He changes
+super powers. He starts small Mario without powers. He changes
 to a different appearance with a specific power by collecting items.
 Mario also earns coins by collecting items and gets an additional life
 if he collects more than 5000 of them.
@@ -148,7 +148,7 @@ it like this:
 
 ![Mario State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_states.puml)
 
-Here are the transitions shown as a table:
+Here are the transitions shown again as a table:
 
 | Character  | Item       | Effect            | Coins |
 |------------|------------|-------------------|-------|
@@ -174,10 +174,10 @@ way:
   * The process operation prints a character specific message
   * The enter/leave operations print a message to visualize the transitions
   
-  The main loop of the example implements a small menu where events get
-  fired based on keyboard input to simulate the game.
+The main loop of the example implements a small menu where events get
+fired based on keyboard input to simulate the game.
 
-  The example application is designed as follows:
+The example application is designed as follows:
   
 ![Mario Example Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_classdiagram.puml)
 
