@@ -1,7 +1,9 @@
 @startuml State Pattern
 
+package "State Pattern" {
+
 class Context {
-    -state
+    +state
     +operation()
 }
 
@@ -17,9 +19,9 @@ class State2 {
     +operation()
 }
 
-Context -r-> "1" State
-State <|-- State1
-State <|-- State2
+Context --  State
+State <|-d- State1
+State <|-d- State2
 
-
+}
 @enduml

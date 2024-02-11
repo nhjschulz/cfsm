@@ -1,0 +1,24 @@
+@startuml Mario State Machine
+
+state SmallMario
+state SuperMario
+state CapeMario
+state FireMario
+state DeadMario
+
+SmallMario --> CapeMario : Feather
+SmallMario --> FireMario : FireFlower
+SmallMario --> SuperMario : Mushroom
+
+SuperMario --> SmallMario : Monster
+SuperMario ----> CapeMario : Feather
+SuperMario -> FireMario : FireFlower
+
+CapeMario --> SmallMario : Monster
+
+FireMario --> SmallMario : Monster
+FireMario --> CapeMario : Feather
+
+SmallMario --> SmallMario: Monster
+SmallMario --> DeadMario : no more lifes
+@enduml
