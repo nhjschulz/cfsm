@@ -22,7 +22,7 @@ This project contains both the CFSM source code and a easy to understand
 example to show how to use it. It is build using CMake. Integration into
 own projects doesn't require CMake. CFSM is a single source file and 
 a header file. There are no external dependencies. Simply add c_fsm.c and
-c_fsm.h to to your project.
+c_fsm.h into your project.
 
 ## How It Works
 
