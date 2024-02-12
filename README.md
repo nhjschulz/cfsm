@@ -20,8 +20,8 @@ This work was inspired by the excellent article
 
 ## Introducing CFSM
 
-[The CFSM Github project](https://github.com/nhjschulz/cfsm) contains both
-the CFSM source code and a easy to understand example. It is build using
+The CFSM Github project contains both
+the CFSM source code and an easy to understand example. It is build using
 [CMake](https://cmake.org). <br>
 Integration into own projects doesn't require CMake. CFSM is a single source
 and header file only. There are no external dependencies. Simply add the
@@ -50,10 +50,10 @@ use cases:
 ![State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_context.puml)
 
 There are operations to execute
-   1) When the FSM "enters" a state, meaning it becomes the current active one.
-   2) When the FSM "leaves" a state, meaning some other state gets active
-   3) When a cyclic processing in the active state shall take place
-   4) When an event is signaled to the FSM
+   1. When the FSM "enters" a state, meaning it becomes the current active one.
+   2. When the FSM "leaves" a state, meaning some other state gets active
+   3. When a cyclic processing in the active state shall take place
+   4. When an event is signaled to the FSM
 
 Each of these operations is represented as a function pointer in the CFSM
 context data structure. CFSM takes care about calling leave and enter 
@@ -118,8 +118,8 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
 State transitions are triggered by calling the ```cfsm_transitionTo()```
 API function. The call can originate 
 
-1) from the CFSM using application to enter a specific state
-2) from inside the state operation handlers
+1. from the CFSM using application to enter a specific state
+2. from inside the state operation handlers
 
 The following interaction diagram shows what happens during a state
 transition from state "Mario" to "SuperMario":
@@ -276,19 +276,19 @@ Here is a transcript of first game simulation steps:
 (8) Choose Event: (1=Mushroom, 2=FireFlower, 3=feather, 4=Monster, 5=none (just process) 0=quit) :
  ```
 
-1) This is the response of the initial transition to small Mario. Note that
+1. This is the response of the initial transition to small Mario. Note that
    there is no leave message as CFSM had no former state.
-2) This is the response to the process cycle we trigger at the begin of
+2. This is the response to the process cycle we trigger at the begin of
    the game loop.
-3) This is main printing the current Mario state. It is not related to CFSM.
-4) This is the menu, asking for user input. We gave it a 1 (MUSHROOM).
-5) Processing the MUSHROOM event causes a transition inside the event 
+3. This is main printing the current Mario state. It is not related to CFSM.
+4. This is the menu, asking for user input. We gave it a 1 (MUSHROOM).
+5. Processing the MUSHROOM event causes a transition inside the event 
    operation of SmallMario. We leave SmallMario state into SuperMario.
-6) Now the loop restarted with the process cycle. Note that we became
+6. Now the loop restarted with the process cycle. Note that we became
    SUPER Mario :).
-7) Also Mario's data got updated. It shows now SuperMario and the earned
+7. Also Mario's data got updated. It shows now SuperMario and the earned
    100 coins.
-8) The game loop askes again for the next user input
+8. The game loop askes again for the next user input
 
 ### The Event States Implementation
 
@@ -432,21 +432,21 @@ safety applications. The functionality is easy to test and review.
 
 CFSM achieves the following benefits
 
-1) Shows a light weight method to implement the STATE pattern in plain C 
+1. Shows a light weight method to implement the STATE pattern in plain C 
    language.
-2) Avoids complex and nested conditional logic by distributing it
+2. Avoids complex and nested conditional logic by distributing it
    into different states that are easier to maintain.
-3) Encapsulates state specific behavior into the states implementation.
-4) Easy to extend with new states. Adding new states affect the 
+3. Encapsulates state specific behavior into the states implementation.
+4. Easy to extend with new states. Adding new states affect the 
    existing code in a minimal way. Only transitions to the new state
    need to be added somewhere.
 
 ## Drawbacks
 
-1) The separation into states increases the number of modules to deal with.
+1. The separation into states increases the number of modules to deal with.
    This may cause unreasonable overhead for trivial state machines that are 
    better implemented using nested conditional logic. 
-2) State implementations typically look very similar, causing some degree of 
+2. State implementations typically look very similar, causing some degree of 
    code duplication. This is usually addressed in OO Languages by introducing
    base classes for states. C-Language doesn't offer such concepts and 
    CFSM does not aim to mimic such OO behavior in C.
