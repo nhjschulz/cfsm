@@ -10,7 +10,7 @@ tutorials. But these tutorials focus around the
 [STATE Design Pattern](https://en.wikipedia.org/wiki/State_pattern) 
 for <b>object oriented languages</b> like C++, Java or C# only.
 
-The CFSM pattern uses a light weight approach using  C-Language to implement 
+CFSM uses a light weight approach for the C-Language to implement 
 maintainble state machines according to the STATE design pattern.
 
 This work was inspired by this excellent article
