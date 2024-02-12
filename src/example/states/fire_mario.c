@@ -102,11 +102,11 @@ void FireMario_onEvent(cfsm_Fsm * fsm, int eventId)
             break;
 
         case FEATHER:
-            cfsm_transitionTo(fsm, CapeMario_onEnter);
+            cfsm_transition(fsm, CapeMario_onEnter);
             break;
 
         case MONSTER:
-            cfsm_transitionTo(fsm, SmallMario_onEnter);
+            cfsm_transition(fsm, SmallMario_onEnter);
             break;
     }
 }

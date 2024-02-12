@@ -93,21 +93,21 @@ static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
     switch(eventId)
     {
         case MUSHROOM:
-            cfsm_transitionTo(fsm, SuperMario_onEnter);
+            cfsm_transition(fsm, SuperMario_onEnter);
             break;
 
         case FIREFLOWER:
-            cfsm_transitionTo(fsm, FireMario_onEnter);
+            cfsm_transition(fsm, FireMario_onEnter);
             break;
 
         case FEATHER:
-            cfsm_transitionTo(fsm, CapeMario_onEnter);
+            cfsm_transition(fsm, CapeMario_onEnter);
             break;
 
         case MONSTER:
             if (0 == mario_takeLife())
             {
-                cfsm_transitionTo(fsm, DeadMario_onEnter);
+                cfsm_transition(fsm, DeadMario_onEnter);
             }
             break;
     }

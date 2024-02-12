@@ -116,13 +116,13 @@ void test_cfsm_init_is_safe_to_use()
 
     /* should not crash */
     cfsm_process(&fsm);
-    cfsm_signalEvent(&fsm, 0x12345678);
+    cfsm_event(&fsm, 0x12345678);
 
 }
 
-void test_cfsm_transitionTo_should_set_enter_handler_only()
+void test_cfsm_transition_should_set_enter_handler_only()
 {
-    cfsm_transitionTo(&fsm, State_only_onEnter);
+    cfsm_transition(&fsm, State_only_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsm.onEnter, State_only_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsm.onEvent, NULL);
     TEST_ASSERT_EQUAL_PTR(fsm.onProcess, NULL);
@@ -131,7 +131,7 @@ void test_cfsm_transitionTo_should_set_enter_handler_only()
 
 void test_cfs_process()
 {
-    cfsm_transitionTo(&fsm, State_A_onEnter);
+    cfsm_transition(&fsm, State_A_onEnter);
 
     TEST_ASSERT_EQUAL_INT(state_A.enterCalls, 1);
     TEST_ASSERT_EQUAL_INT(state_A.leaveCalls, 0);
@@ -152,7 +152,7 @@ void test_cfs_process()
 
 void test_cfs_signalEvent()
 {
-    cfsm_transitionTo(&fsm, State_A_onEnter);
+    cfsm_transition(&fsm, State_A_onEnter);
 
     TEST_ASSERT_EQUAL_INT(state_A.enterCalls, 1);
     TEST_ASSERT_EQUAL_INT(state_A.leaveCalls, 0);
@@ -161,7 +161,7 @@ void test_cfs_signalEvent()
 
     for (int i = 0; i < 10; ++i) 
     {
-        cfsm_signalEvent(&fsm, i);
+        cfsm_event(&fsm, i);
     }
     TEST_ASSERT_EQUAL_INT(state_A.enterCalls, 1);
     TEST_ASSERT_EQUAL_INT(state_A.leaveCalls, 0);
@@ -171,7 +171,7 @@ void test_cfs_signalEvent()
 
 void test_cfs_transition_A_B_A()
 {
-    cfsm_transitionTo(&fsm, State_A_onEnter);
+    cfsm_transition(&fsm, State_A_onEnter);
 
     TEST_ASSERT_EQUAL_PTR(fsm.onEnter, State_A_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsm.onEvent, State_A_onEvent);
@@ -188,7 +188,7 @@ void test_cfs_transition_A_B_A()
     TEST_ASSERT_EQUAL_INT(state_B.processCalls, 0);
     TEST_ASSERT_EQUAL_INT(state_B.eventCalls, 0);
 
-    cfsm_transitionTo(&fsm, State_B_onEnter);
+    cfsm_transition(&fsm, State_B_onEnter);
 
     TEST_ASSERT_EQUAL_PTR(fsm.onEnter, State_B_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsm.onEvent, State_B_onEvent);
@@ -205,7 +205,7 @@ void test_cfs_transition_A_B_A()
     TEST_ASSERT_EQUAL_INT(state_B.processCalls, 0);
     TEST_ASSERT_EQUAL_INT(state_B.eventCalls, 0);
 
-    cfsm_transitionTo(&fsm, State_A_onEnter);
+    cfsm_transition(&fsm, State_A_onEnter);
 
     TEST_ASSERT_EQUAL_PTR(fsm.onEnter, State_A_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsm.onEvent, State_A_onEvent);
@@ -229,7 +229,7 @@ int main(void)
  
     RUN_TEST(test_cfsm_init_is_safe_to_use);
     RUN_TEST(test_cfsm_init_should_clear_handler);
-    RUN_TEST(test_cfsm_transitionTo_should_set_enter_handler_only);
+    RUN_TEST(test_cfsm_transition_should_set_enter_handler_only);
     RUN_TEST(test_cfs_transition_A_B_A);
 
     return UNITY_END();

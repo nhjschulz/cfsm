@@ -66,7 +66,7 @@ void cfsm_init(struct cfsm_Fsm * fsm)
 }
 
 
-void cfsm_transitionTo(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
+void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
 {
     /* Call former state leave operations if present. */
     if ((cfsm_TransitionFunction)0 != fsm->onLeave)
@@ -97,7 +97,7 @@ void cfsm_process(struct cfsm_Fsm * fsm)
     }
 }
 
-void cfsm_signalEvent(struct cfsm_Fsm * fsm, int eventId)
+void cfsm_event(struct cfsm_Fsm * fsm, int eventId)
 {
     /* Delegate to state event processing if handler is defined. */
     if ((cfsm_EventFunction)0 != fsm->onEvent)

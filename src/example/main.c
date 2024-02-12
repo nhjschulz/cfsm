@@ -71,7 +71,7 @@ int main(int argc, char **argv)
     puts ("Mario cfsm example: \n");
 
     cfsm_init(&marioFsm);
-    cfsm_transitionTo(&marioFsm, SmallMario_onEnter);
+    cfsm_transition(&marioFsm, SmallMario_onEnter);
 
     for(;;) 
     {
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
         /* process signal in current CFSM state */
         if (NOP != option) 
         {
-            cfsm_signalEvent(&marioFsm, option);
+            cfsm_event(&marioFsm, option);
         }
     }
 

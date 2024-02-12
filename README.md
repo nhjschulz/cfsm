@@ -115,7 +115,7 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
 
 ### CFSM State Transitions
 
-State transitions are triggered by calling the ```cfsm_transitionTo()```
+State transitions are triggered by calling the ```cfsm_transition()```
 API function. The call can originate 
 
 1. from the CFSM using application to enter a specific state
@@ -204,13 +204,13 @@ int main(int argc, char **argv)
     cfsm_Fsm marioFsm;
 
     cfsm_init(&marioFsm);
-    cfsm_transitionTo(&marioFsm, SmallMario_onEnter);
+    cfsm_transition(&marioFsm, SmallMario_onEnter);
 
     /* ... */
  ```
 Transitioning to the start state is done by providing the 
 enter operation handler for this state to the API function
-```cfsm_transitionTo()```. CFSM then calls the leave operation
+```cfsm_transition()```. CFSM then calls the leave operation
 of the former state (if one was defined) and then calls the passed
 enter operation.
 
@@ -221,7 +221,7 @@ only print a message according to Mario's current state to
 show that they had been run.<br>
 The loop then displays a menu asking to enter a key to trigger
 the next event. This event is passed to the Mario CFSM by calling 
-```cfsm_signalEvent()```. <br>
+```cfsm_event()```. <br>
 Finally the loop restarts unless QUIT was selected by the user.
 
  ``` C
@@ -248,7 +248,7 @@ Finally the loop restarts unless QUIT was selected by the user.
         /* process signal in current CFSM state */
         if (NOP != option) 
         {
-            cfsm_signalEvent(&marioFsm, option);
+            cfsm_event(&marioFsm, option);
         }
     }
 
@@ -333,9 +333,9 @@ The final 3 lines update the CFSM context to delegate operations
 to the SmallMario state. 
 
 Note that unused handlers don't need to be set to NULL. The 
-```cfsm_transitionTo()``` API has done this before calling the
+```cfsm_transition()``` API has done this before calling the
 enter operation. Also the enter operation was stored during the 
-```cfsm_transitionTo()``` call. Only the other needed handlers must be
+```cfsm_transition()``` call. Only the other needed handlers must be
  set here (if any).
 
 #### The Small Mario Leave Operation
@@ -393,21 +393,21 @@ static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
     switch(eventId)
     {
         case MUSHROOM:
-            cfsm_transitionTo(fsm, SuperMario_onEnter);
+            cfsm_transition(fsm, SuperMario_onEnter);
             break;
 
         case FIREFLOWER:
-            cfsm_transitionTo(fsm, FireMario_onEnter);
+            cfsm_transition(fsm, FireMario_onEnter);
             break;
 
         case FEATHER:
-            cfsm_transitionTo(fsm, CapeMario_onEnter);
+            cfsm_transition(fsm, CapeMario_onEnter);
             break;
 
         case MONSTER:
             if (0 == mario_takeLife())
             {
-                cfsm_transitionTo(fsm, DeadMario_onEnter);
+                cfsm_transition(fsm, DeadMario_onEnter);
             }
             break;
     }

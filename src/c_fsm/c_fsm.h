@@ -94,7 +94,7 @@ void cfsm_init(struct cfsm_Fsm * fsm);
   * @param fsm  The fsm data structure
   * @param enterFunc The enter function for the new fsm state (may be NULL)
   */
-void cfsm_transitionTo(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc);
+void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc);
 
 /**
  * @brief Execute a process cycle to the current fsm state
@@ -125,7 +125,7 @@ void cfsm_process(struct cfsm_Fsm * fsm);
  * @param fsm The fsm data structure
  * @param eventId An application defined ID to identify the event.
  */
-void cfsm_signalEvent(struct cfsm_Fsm * fsm, int eventId);
+void cfsm_event(struct cfsm_Fsm * fsm, int eventId);
 
 #ifdef __cplusplus
 }

@@ -96,15 +96,15 @@ static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId)
             break;
 
         case FIREFLOWER:
-            cfsm_transitionTo(fsm, FireMario_onEnter);
+            cfsm_transition(fsm, FireMario_onEnter);
             break;
 
         case FEATHER:
-            cfsm_transitionTo(fsm, CapeMario_onEnter);
+            cfsm_transition(fsm, CapeMario_onEnter);
             break;
 
         case MONSTER:
-            cfsm_transitionTo(fsm, SmallMario_onEnter);
+            cfsm_transition(fsm, SmallMario_onEnter);
             break;
     }
 }

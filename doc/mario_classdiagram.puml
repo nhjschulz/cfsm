@@ -1,8 +1,5 @@
 @startuml State Pattern
 
-skinparam linetype polyline
-'skinparam linetype ortho
-
 package "Mario Example" {
 
     class Main {
@@ -19,39 +16,37 @@ package "Mario Example" {
     }
 
     package Mario {
-    enum MarioVariant {
-        SMALL_MARIO
-        SUPER_MARIO
-        CAPE_MARIO
-        FIRE_MARIO
-        DEAD_MARIO
-    }
+        enum MarioVariant {
+            SMALL_MARIO
+            SUPER_MARIO
+            CAPE_MARIO
+            FIRE_MARIO
+            DEAD_MARIO
+        }
 
-    enum MarioEvent {
-        MUSHROOM
-        FIREFLOWER
-        FEATHER 
-        MONSTER   
-    }
-    class MarioData  <<singleton>> {
-        - variant : MarioVariant
-        - lifes : int
-        - coins : int
-        +mario_setVariant(v : MarioVariant)
-        +mario_updateCoins(e :MarioEvent);
-        +mario_uprint()
-
-    }
-
+        enum MarioEvent {
+            MUSHROOM
+            FIREFLOWER
+            FEATHER 
+            MONSTER   
+        }
+        class MarioData  <<singleton>> {
+            - variant : MarioVariant
+            - lifes : int
+            - coins : int
+            + mario_setVariant(v : MarioVariant)
+            + mario_updateCoins(e :MarioEvent)
+            + mario_print()
+        }
     }
 }
 
 package "CFSM" {
     class cfsm_Fsm  {
         +cfsm_init()
-        +cfsm_transitionTo( enterFunc: cfsm_TransitionFunction)
+        +cfsm_transition( enterFunc: cfsm_TransitionFunction)
         +cfsm_process()
-        +cfsm_signalEvent( eventId : int)
+        +cfsm_event( eventId : int)
     }
 
     interface Operations <<interface>> {
