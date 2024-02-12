@@ -20,11 +20,13 @@ This work was inspired by the excellent article
 
 ## Introducing CFSM
 
-This project contains both the CFSM source code and a easy to understand
-example to show how to use it. It is build using CMake. Integration into
-own projects doesn't require CMake. CFSM is a single source file and 
-a header file. There are no external dependencies. Simply add c_fsm.c and
-c_fsm.h into your project.
+[The CFSM Github project](https://github.com/nhjschulz/cfsm) contains both
+the CFSM source code and a easy to understand example. It is build using
+[CMake](https://cmake.org). <br>
+Integration into own projects doesn't require CMake. CFSM is a single source
+and header file only. There are no external dependencies. Simply add the
+[c_fsm.c and c_fsm.h](https://github.com/nhjschulz/cfsm/tree/master/src/c_fsm)
+files into your project.
 
 ## How It Works
 
@@ -116,7 +118,7 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
 State transitions are triggered by calling the ```cfsm_transitionTo()```
 API function. The call can originate 
 
-1) from CFSM  usin application to enter a specific state
+1) from the CFSM using application to enter a specific state
 2) from inside the state operation handlers
 
 The following interaction diagram shows what happens during a state
@@ -125,7 +127,7 @@ transition from state "Mario" to "SuperMario":
 ![Transition Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_transition.puml)
 
 The process() calls are not part of the transition. They show how
-the delegation of the process action changes as a result of the 
+the delegation of the process action changed as a result of the 
 state transition in between.
 
 # The Mario CFSM Example
@@ -171,15 +173,15 @@ Here are the transitions shown as a table:
 The example uses CFSM to implement the Mario state machine in the following
 way:
   
-  * Each Mario character is a state implemented in an own C-File
-  * The collection of items or the monster hits are modelled as events
-  * The process operation prints a character specific message
-  * The enter/leave operations print a message to visualize the transitions
+  * Each Mario character is a state implemented in an own C-File.
+  * The collection of items or the monster hits are modelled as events.
+  * The process operation prints a character specific message.
+  * The enter/leave operations print a message to visualize these transitions.
   
 The main loop of the example implements a small menu where events get
 fired based on user input to simulate the game.
 
-The example application is designed as follows:
+THis is the example application component design:
   
 ![Mario Example Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_classdiagram.puml)
 
@@ -206,19 +208,19 @@ int main(int argc, char **argv)
 
     /* ... */
  ```
- Transitioning to the start state is done by providing the 
- enter operation handler for this state to the API function
- ```cfsm_transitionTo()```. CFSM then calls the leave operation
- of the former state (if one was defined) and then calls the passed
- enter operation.
+Transitioning to the start state is done by providing the 
+enter operation handler for this state to the API function
+```cfsm_transitionTo()```. CFSM then calls the leave operation
+of the former state (if one was defined) and then calls the passed
+enter operation.
 
- The remainder of the main function is the game loop. It gives Mario
- a process operation cycle by calling 
- ```cfsm_process(&marioFsm)```. The process handlers in this example
- only print a message according to Mario's current state to 
- show that they had been run.<br>
+The remainder of the main function is the game loop. It gives Mario
+a process operation cycle by calling 
+```cfsm_process(&marioFsm)```. The process handlers in this example
+only print a message according to Mario's current state to 
+show that they had been run.<br>
 The loop then displays a menu asking to enter a key to trigger
-the next event. The event is passed to the Mario CFSM by calling 
+the next event. This event is passed to the Mario CFSM by calling 
 ```cfsm_signalEvent()```. <br>
 Finally the loop restarts unless QUIT was selected by the user.
 
@@ -254,7 +256,7 @@ Finally the loop restarts unless QUIT was selected by the user.
 
 That's it. There is no special state processing in the application 
 main loop. It's only purpose is to initialize, process and signal
-events to the CFSM. Any state dependent code vanishes into the 
+events to CFSM. Any state dependent code vanishes into the 
 different state implementing modules.
 
 Here is a transcript of first game simulation steps:
@@ -320,14 +322,14 @@ other modules to transition into it.
  is required to update the handler pointer or as a parameter to other
  cfsm API functions.
 
- The first two lines are the action that the enter handler performs.
+ The first two lines are the actions that the enter handler performs.
  In this example it
 
- * prints a message to show the user it got called.  In real code such
+ * prints a message to show the user it got called. In real code such
    a call would not be there or would be using some debug logging api.
  * updates our Mario to become a small one.  
 
-The final 3 lines update the CFSM context to delegate further operations
+The final 3 lines update the CFSM context to delegate operations
 to the SmallMario state. 
 
 Note that unused handlers don't need to be set to NULL. The 
@@ -355,7 +357,7 @@ Our process operations are also trivial. We just print a line
 that fits to the current Mario personality.
 
 In real applications you have to make a decision what to do during
-cyclic processing and event signaling. Our Mario model is event 
+cyclic processing or event signaling. Our Mario model is event 
 driven. That's why the transition logic and action where placed into
 the event operation handler. If your logic follows a polling model,
 you likely implement this in the processing operation instead.
@@ -380,7 +382,7 @@ code dublication.
 
 The individual event cases trigger a transition from small to another 
 Mario dependent on the event. Noteworthy is the slightly more complex
-monster case, where we also need to decrease the number of lives
+monster case. Here we also need to decrease the number of lives
 and eventually transition into dead Mario if no more are left.
 
   ``` C
@@ -436,7 +438,7 @@ CFSM achieves the following benefits
    into different states that are easier to maintain.
 3) Encapsulates state specific behavior into the states implementation.
 4) Easy to extend with new states. Adding new states affect the 
-   existing code in a minimal way. Only the transition to the new state
+   existing code in a minimal way. Only transitions to the new state
    need to be added somewhere.
 
 ## Drawbacks
