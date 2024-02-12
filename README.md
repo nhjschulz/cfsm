@@ -15,7 +15,7 @@ maintainble state machines according to the STATE design pattern.
 This differentiate is from other solutions that often rely on complex
 macros to construct state handlers.
 
-This work was inspired by this excellent article
+This work was inspired by the excellent article
 [Patterns in C- Part 2: STATE](https://www.adamtornhill.com/Patterns%20in%20C%202,%20STATE.pdf) from Adam Petersen.
 
 ## Introducing CFSM
@@ -85,13 +85,13 @@ Notes:
 
 ### CFSM States
 
-A CFSM state is a rather light weight concept. It is not implemented as 
+A CFSM state is a light weight concept. It is not implemented as 
 an object or data structure as someone would expect using object
-oriented languages. A state in our C-Language world is just a set of
+oriented languages. A state in the C-Language world is just a set of
 functions that are known by the context as operations. 
 
 The only mandatory state function is the enter operation. It is needed
-even if there are no state specific entry actions to perform. It jobs is
+even if there are no state specific entry actions to perform. It's job is
 to also update the context function pointers. Below is an example of a 
 set of function that define a SuperMario state:
 
@@ -114,7 +114,7 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
 ### CFSM State Transitions
 
 State transitions are triggered by calling the ```cfsm_transitionTo()```
-API function. The call can originate either 
+API function. The call can originate 
 
 1) from CFSM  usin application to enter a specific state
 2) from inside the state operation handlers
@@ -138,7 +138,7 @@ famous Mario computer game character that most people should be familiar with.
 Mario can change his appearance into various different characters to gain
 super powers. He starts small Mario without powers. He changes
 to a different appearance with a specific power by collecting items.
-Mario also earns coins by collecting items and gets an additional life
+Mario earns coins by collecting items and gets an additional life
 if he collects more than 5000 of them.
 If an empowered Mario hits a monster, he loses the power and changes
 back to small Mario. If small Mario hits a monster, he loses a life. If 
@@ -150,7 +150,7 @@ it like this:
 
 ![Mario State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_states.puml)
 
-Here are the transitions shown again as a table:
+Here are the transitions shown as a table:
 
 | Character  | Item       | Effect            | Coins |
 |------------|------------|-------------------|-------|
@@ -171,13 +171,13 @@ Here are the transitions shown again as a table:
 The example uses CFSM to implement the Mario state machine in the following
 way:
   
-  * Each Mario character type is a state implemented in an own C-File
+  * Each Mario character is a state implemented in an own C-File
   * The collection of items or the monster hits are modelled as events
   * The process operation prints a character specific message
   * The enter/leave operations print a message to visualize the transitions
   
 The main loop of the example implements a small menu where events get
-fired based on keyboard input to simulate the game.
+fired based on user input to simulate the game.
 
 The example application is designed as follows:
   
@@ -215,12 +215,12 @@ int main(int argc, char **argv)
  The remainder of the main function is the game loop. It gives Mario
  a process operation cycle by calling 
  ```cfsm_process(&marioFsm)```. The process handlers in this example
- only  print a message according to Mario's current state to 
+ only print a message according to Mario's current state to 
  show that they had been run.<br>
-The loop then displays a menu that asks to enter a key to trigger
-an event. The event is then passed to the Mario CFSM by calling 
+The loop then displays a menu asking to enter a key to trigger
+the next event. The event is passed to the Mario CFSM by calling 
 ```cfsm_signalEvent()```. <br>
-Finally the loop restarts unless QUIT was selected the user.
+Finally the loop restarts unless QUIT was selected by the user.
 
  ``` C
     for(;;) 
@@ -290,9 +290,9 @@ Here is a transcript of first game simulation steps:
 
 ### The Event States Implementation
 
-All states from the example are implemented as an own C module in the 
+All states from the example are implemented in an own C module in the 
 src/example/states folder. There is no requirement to do it this way,
-but it's a reasonable way to keep things maintainable if state complexity
+but its a reasonable way to keep things maintainable if state complexity
 or number increases over time. The following sub chapters walk through
 the operation handlers of the small Mario state. The other states are 
 very similar and not shown here. Also remember that a CFSM state is just
@@ -323,18 +323,18 @@ other modules to transition into it.
  The first two lines are the action that the enter handler performs.
  In this example it
 
- * prints a message to show the user it got called.  In real code this
-   would not be there or using some debug logging api.
+ * prints a message to show the user it got called.  In real code such
+   a call would not be there or would be using some debug logging api.
  * updates our Mario to become a small one.  
 
 The final 3 lines update the CFSM context to delegate further operations
 to the SmallMario state. 
 
 Note that unused handlers don't need to be set to NULL. The 
-```cfsm_transitionTo()``` API has already done this before calling the
+```cfsm_transitionTo()``` API has done this before calling the
 enter operation. Also the enter operation was stored during the 
 ```cfsm_transitionTo()``` call. Only the other needed handlers must be
- set here.
+ set here (if any).
 
 #### The Small Mario Leave Operation
 
@@ -351,14 +351,14 @@ static void SmallMario_onLeave(cfsm_Fsm * fsm)
 
  #### The Small Mario Process Operation
 
-Our Process operations are also trivial. We just print a line
+Our process operations are also trivial. We just print a line
 that fits to the current Mario personality.
 
 In real applications you have to make a decision what to do during
 cyclic processing and event signaling. Our Mario model is event 
 driven. That's why the transition logic and action where placed into
 the event operation handler. If your logic follows a polling model,
-you likely do this in the processing operation here instead.
+you likely implement this in the processing operation instead.
 
 ``` C
 static void SmallMario_onProcess(cfsm_Fsm * fsm)
@@ -374,11 +374,11 @@ machine due to the fact that all transitions are event based. The
 event signal operation is implemented as a switch over the event ids.
 
 The call to ```mario_updateCoins()``` extracts the coin awards into
-a helper function. The amount of coins depend only on the event, not
+a helper function. The amount of coins depend on the event, not
 on the state. Directly implementing it inside the states would cause
 code dublication.
 
-The individual event cases cause a transition from small to another 
+The individual event cases trigger a transition from small to another 
 Mario dependent on the event. Noteworthy is the slightly more complex
 monster case, where we also need to decrease the number of lives
 and eventually transition into dead Mario if no more are left.
@@ -413,12 +413,12 @@ static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
  ```
 
 This is now a good time to look into the other Mario state 
-implementations to figure out how the differ from SmallMario.
+implementations to figure out how they differ from SmallMario.
 The DeadMario state is the most deviating one. There is no way
 back from the after live, meaning some operation handlers are
 not needed and therefore also not present at all.
 
- ## Summary
+# Conclusion
 
 The CFSM pattern is surprisingly simple. There are no complex logic
 sequences or loops in CFSM. Processing boils down to a NULL checked
@@ -426,10 +426,11 @@ function pointer call to delegate operation requests to state
 objects. This simplicity makes the pattern also usable for functional
 safety applications. The functionality is easy to test and review.
 
-### Benefits
+## Benefits
+
 CFSM achieves the following benefits
 
-1) Shows a light weight way to implement the STATE pattern in plain C 
+1) Shows a light weight method to implement the STATE pattern in plain C 
    language.
 2) Avoids complex and nested conditional logic by distributing it
    into different states that are easier to maintain.
@@ -438,13 +439,13 @@ CFSM achieves the following benefits
    existing code in a minimal way. Only the transition to the new state
    need to be added somewhere.
 
-### Drawbacks
+## Drawbacks
 
 1) The separation into states increases the number of modules to deal with.
    This may cause unreasonable overhead for trivial state machines that are 
    better implemented using nested conditional logic. 
 2) State implementations typically look very similar, causing some degree of 
    code duplication. This is usually addressed in OO Languages by introducing
-   base classes for states. The C-Language doesn't offer such concepts and 
-   CFSM does not aim to mimic OO behavior in C.
+   base classes for states. C-Language doesn't offer such concepts and 
+   CFSM does not aim to mimic such OO behavior in C.
    
