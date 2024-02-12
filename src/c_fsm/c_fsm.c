@@ -26,13 +26,13 @@
 *******************************************************************************/
 
 /**
- * @brief  CFSM Header file 
- * 
- * This file contains the implementation for the cfsm 
+ * @brief  CFSM Header file
+ *
+ * This file contains the implementation for the cfsm
  * pattern for finite state machines in C-language.
- * 
+ *
  * Repository: https://github.com/nhjschulz/cfsm
- *  
+ *
  */
 
 /******************************************************************************
@@ -74,11 +74,11 @@ void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
         fsm->onLeave(fsm);
     }
 
-    /* Set enter function pointer and clear all other handler. They 
+    /* Set enter function pointer and clear all other handler. They
      * get set by the enter function if needed.
      */
     *fsm =  (cfsm_Fsm) { enterFunc, 0, 0, 0 };
-     
+
     /* Call enter function NULL checked. It might be NULL to "disable"
      * all FSM operations.
      */

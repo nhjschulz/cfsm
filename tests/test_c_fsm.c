@@ -26,7 +26,7 @@
 *******************************************************************************/
 /**
  * @brief  CFSM test suite
- *  
+ *
  * @addtogroup tests
  *
  * @{
@@ -85,20 +85,25 @@ static StateOperationCounter state_B;
  * External functions
  *****************************************************************************/
 
-void setUp(void) 
+void setUp(void)
 {
     cfsm_init(&fsm);
 
     memset(&state_A, 0, sizeof(state_A));
     memset(&state_B, 0, sizeof(state_A));
-
 }
 
 void tearDown(void)
 {
-
 }
- 
+
+void test_cfsm_version()
+{
+    TEST_ASSERT_EQUAL(0, CFSM_VER_MAJOR);
+    TEST_ASSERT_EQUAL(1, CFSM_VER_MINOR);
+    TEST_ASSERT_EQUAL(0, CFSM_VER_PATCH);
+}
+
 void test_cfsm_init_should_clear_handler()
 {
     memset(&fsm, -1, sizeof(fsm));  /* corrupt content */
@@ -117,7 +122,6 @@ void test_cfsm_init_is_safe_to_use()
     /* should not crash */
     cfsm_process(&fsm);
     cfsm_event(&fsm, 0x12345678);
-
 }
 
 void test_cfsm_transition_should_set_enter_handler_only()
@@ -139,7 +143,7 @@ void test_cfs_process()
     TEST_ASSERT_EQUAL_INT(state_A.eventCalls, 0);
     TEST_ASSERT_EQUAL_INT(state_A.lastEventId, 0);
 
-    for (int i = 0; i < 10; ++i) 
+    for (int i = 0; i < 10; ++i)
     {
         cfsm_process(&fsm);
         TEST_ASSERT_EQUAL_INT(state_A.lastEventId, i);
@@ -159,7 +163,7 @@ void test_cfs_signalEvent()
     TEST_ASSERT_EQUAL_INT(state_A.processCalls, 0);
     TEST_ASSERT_EQUAL_INT(state_A.eventCalls, 0);
 
-    for (int i = 0; i < 10; ++i) 
+    for (int i = 0; i < 10; ++i)
     {
         cfsm_event(&fsm, i);
     }
@@ -211,7 +215,7 @@ void test_cfs_transition_A_B_A()
     TEST_ASSERT_EQUAL_PTR(fsm.onEvent, State_A_onEvent);
     TEST_ASSERT_EQUAL_PTR(fsm.onProcess, State_A_onProcess);
     TEST_ASSERT_EQUAL_PTR(fsm.onLeave, State_A_onLeave);
-    
+
     TEST_ASSERT_EQUAL_INT(state_A.enterCalls, 2);
     TEST_ASSERT_EQUAL_INT(state_A.leaveCalls, 1);
     TEST_ASSERT_EQUAL_INT(state_A.processCalls, 0);
@@ -226,7 +230,7 @@ void test_cfs_transition_A_B_A()
 int main(void)
 {
     UNITY_BEGIN();
- 
+
     RUN_TEST(test_cfsm_init_is_safe_to_use);
     RUN_TEST(test_cfsm_init_should_clear_handler);
     RUN_TEST(test_cfsm_transition_should_set_enter_handler_only);
@@ -248,7 +252,7 @@ static void State_A_onEnter(cfsm_Fsm * fsm)
     fsm->onLeave = State_A_onLeave;
     fsm->onProcess = State_A_onProcess;
 
-    state_A.enterCalls++;  
+    state_A.enterCalls++;
 }
 
 static void State_A_onEvent(cfsm_Fsm * fsm, int eventId)
@@ -259,8 +263,8 @@ static void State_A_onEvent(cfsm_Fsm * fsm, int eventId)
 static void State_A_onProcess(cfsm_Fsm * fsm)
 {
     state_A.processCalls++;
-
 }
+
 static void State_A_onLeave(cfsm_Fsm * fsm)
 {
     state_A.leaveCalls++;
@@ -278,11 +282,12 @@ static void State_B_onEvent(cfsm_Fsm * fsm, int eventId)
 {
     state_B.eventCalls++;
 }
+
 static void State_B_onProcess(cfsm_Fsm * fsm)
 {
     state_B.processCalls++;
-
 }
+
 static void State_B_onLeave(cfsm_Fsm * fsm)
 {
     state_B.leaveCalls++;
