@@ -351,7 +351,7 @@ static void SmallMario_onLeave(cfsm_Fsm * fsm)
 }
  ```
 
- #### The Small Mario Process Operation
+#### The Small Mario Process Operation
 
 Our process operations are also trivial. We just print a line
 that fits to the current Mario personality.
