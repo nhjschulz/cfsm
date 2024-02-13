@@ -12,7 +12,7 @@ for <b>object oriented languages</b> like C++, Java or C# only.
 
 CFSM follows a simplistic approach for the C-Language to implement 
 maintainble state machines according to the STATE design pattern.
-This differentiats it from other solutions that often rely on complex
+This differentiates it from other solutions that often rely on complex
 macros to construct state handlers.
 
 This work was inspired by the excellent article
@@ -51,7 +51,7 @@ use cases:
 
 There are operations to execute
    1. When the FSM "enters" a state, meaning it becomes the current active one.
-   2. When the FSM "leaves" a state, meaning some other state gets active
+   2. When the FSM "leaves" a state, meaning some other state becomes active
    3. When a cyclic processing in the active state shall take place
    4. When an event is signaled to the FSM
 
@@ -61,7 +61,7 @@ operations during a state transition. The cyclic process and event signaling
 gets triggered by the application through CFSM public API. The CFSM context
 structure definition is:
 
-```C
+``` c
 typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
 typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
 typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
@@ -83,7 +83,7 @@ Notes:
  * Operations that are not defined in a state are ignored by CFSM.  
  * Supporting "other" operations can be done by adding new, or
    changing existing functions pointers in the context. CFSM
-   is primarily an implementation pattern, not as a fixed function library.
+   is primarily an implementation pattern, not a fixed function library.
 
 ### CFSM States
 
@@ -97,7 +97,7 @@ even if there are no state specific entry actions to perform. It's job is
 to also update the context function pointers. Below is an example of a 
 set of function that define a SuperMario state:
 
-```C
+``` c
 static void SuperMario_onProcess(cfsm_Fsm * fsm) { /* ... */}
 static void SuperMario_onLeave(cfsm_Fsm * fsm) { /* ... */}
 static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId) { /* ...*/}
@@ -138,7 +138,7 @@ famous Mario computer game character that most people should be familiar with.
 ## The Mario State Machine
 
 Mario can change his appearance into various different characters to gain
-super powers. He starts small Mario without powers. He changes
+super powers. He starts as small Mario without powers. He changes
 to a different appearance with a specific power by collecting items.
 Mario earns coins by collecting items and gets an additional life
 if he collects more than 5000 of them.
@@ -195,7 +195,7 @@ The CFSM setup phase consists of initializing ``marioFsm`` and
 then transition to Mario's start state "SmallMario". The simplified
 codes looks like this:
 
- ```C
+ ``` c
 #include "c_fsm.h"
 #include "states/small_mario.h"
 
@@ -224,7 +224,7 @@ the next event. This event is passed to the Mario CFSM by calling
 ```cfsm_event()```. <br>
 Finally the loop restarts unless QUIT was selected by the user.
 
- ``` C
+ ``` c
     for(;;) 
     {
         int option;
@@ -235,7 +235,7 @@ Finally the loop restarts unless QUIT was selected by the user.
         mario_print(); /* show Mario's data*/
 
         printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, "
-               "4=Monster, 5=none (just process) 0=quit) : ");
+               "4=Monster, 5=none (just process), 0=quit) : ");
         while ((scanf("%d", &option) != 1) || (option > 5))
         {
             puts("invalid option");
@@ -306,7 +306,7 @@ The enter function is the only mandatory operation handler for a state
 and the only one that needs to be public. This is necessary to allow
 other modules to transition into it.
 
- ``` C
+ ``` c
  void SmallMario_onEnter(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onEnter()...");
@@ -344,7 +344,7 @@ Our example leave operations are trivial. We have no actions to perform
 according to the Mario state machine. We just print a line to indicate
 to the user that we got called.
 
-``` C
+``` c
 static void SmallMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onLeave() ...");
@@ -362,7 +362,7 @@ driven. That's why the transition logic and action where placed into
 the event operation handler. If your logic follows a polling model,
 you likely implement this in the processing operation instead.
 
-``` C
+``` c
 static void SmallMario_onProcess(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onProces(): It's me, Mario!");
@@ -385,7 +385,7 @@ Mario dependent on the event. Noteworthy is the slightly more complex
 monster case. Here we also need to decrease the number of lives
 and eventually transition into dead Mario if no more are left.
 
-  ``` C
+  ``` c
 static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
 {
     mario_updateCoins(eventId);
@@ -449,5 +449,5 @@ CFSM achieves the following benefits
 2. State implementations typically look very similar, causing some degree of 
    code duplication. This is usually addressed in OO Languages by introducing
    base classes for states. C-Language doesn't offer such concepts and 
-   CFSM does not aim to mimic such OO behavior in C.
+   CFSM does not try to mimic such OO behavior in C-language.
    

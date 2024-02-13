@@ -83,7 +83,7 @@ int main(int argc, char **argv)
         mario_print(); /* show Mario's data*/
 
         printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, "
-               "4=Monster, 5=none (just process) 0=quit) : ");
+               "4=Monster, 5=none (just process), 0=quit) : ");
         while ((scanf("%d", &option) != 1) || (option > 5))
         {
             puts("invalid option");
