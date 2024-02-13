@@ -20,8 +20,8 @@ class State2 {
 }
 
 Context --  State
-State <|-d- State1
-State <|-d- State2
+State <|.d. State1
+State <|.d. State2
 
 }
 @enduml

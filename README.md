@@ -38,7 +38,7 @@ constructs.
 The state pattern builds on 
 * A context that delegates operations to one of various state objects,
   which is currently the active state.
-* A number of states objects that implement context operations to provide 
+* A number of state objects that implement context operations to provide 
   state dependent behavior of these operations.
 
 ### The CFSM Context
@@ -192,7 +192,7 @@ The main function implements the game simulation loop. It owns
 a CFSM instance as a local cfsm_Fsm structure called ``marioFsm``.
 
 The CFSM setup phase consists of initializing ``marioFsm`` and
-then transition to Marios start state "SmallMario". The simplified
+then transition to Mario's start state "SmallMario". The simplified
 codes looks like this:
 
  ```C

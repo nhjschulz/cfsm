@@ -58,16 +58,16 @@ package "CFSM" {
 }
 
 cfsm_Fsm --  Operations
-SuperMario -u-|> Operations
-CapeMario  -u-|> Operations
-FireMario  -u-|> Operations
-DeadMario  -u-|> Operations
-SmallMario -u-|> Operations
+SuperMario .u-|> Operations
+CapeMario  .u-|> Operations
+FireMario  .u-|> Operations
+DeadMario  .u-|> Operations
+SmallMario .u-|> Operations
 
 states .> Mario : update 
 
 SmallMario <.. Main  
-Main .> cfsm_Fsm : init as SmallMario\nprocessing and\n event signalling 
+Main ..> cfsm_Fsm : init as SmallMario\nprocessing and\n event signalling 
 
 MarioVariant .l. MarioData
 MarioEvent .r. MarioData
