@@ -12,7 +12,7 @@ for <b>object oriented languages</b> like C++, Java or C# only.
 
 CFSM follows a simplistic approach for the C-Language to implement 
 maintainble state machines according to the STATE design pattern.
-This differentiate is from other solutions that often rely on complex
+This differentiats it from other solutions that often rely on complex
 macros to construct state handlers.
 
 This work was inspired by the excellent article
@@ -181,7 +181,7 @@ way:
 The main loop of the example implements a small menu where events get
 fired based on user input to simulate the game.
 
-THis is the example application component design:
+This is the example application component design:
   
 ![Mario Example Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/mario_classdiagram.puml)
 
