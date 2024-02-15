@@ -11,7 +11,7 @@ tutorials. But these tutorials focus around the
 for <b>object oriented languages</b> like C++, Java or C# only.
 
 CFSM follows a simplistic approach for the C-Language to implement 
-maintainble state machines according to the STATE design pattern.
+maintainable state machines according to the STATE design pattern.
 This differentiates it from other solutions that often rely on complex
 macros to construct state handlers.
 
