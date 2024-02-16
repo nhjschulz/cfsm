@@ -19,7 +19,6 @@
       <tab type="filelist" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="user" url="_l_i_c_e_n_s_e_8md.html" visible="yes" title="MIT License"/>
     <tab type="examples" visible="yes" title="" intro=""/>  
   </navindex>
 

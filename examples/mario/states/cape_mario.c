@@ -118,3 +118,5 @@ static void CapeMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("CapeMario_onLeave() ...");
 }
+
+/** @} */

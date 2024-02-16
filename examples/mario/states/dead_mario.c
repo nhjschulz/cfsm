@@ -81,3 +81,5 @@ static void DeadMario_onProcess(cfsm_Fsm * fsm)
 {
     puts("DeadMario_onProces(): He's dead Jim!");
 }
+
+/** @} */

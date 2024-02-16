@@ -61,7 +61,7 @@ operations during a state transition. The cyclic process and event signaling
 gets triggered by the application through CFSM public API. The CFSM context
 structure definition is:
 
-``` c
+```c
 typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
 typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
 typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
@@ -97,7 +97,7 @@ even if there are no state specific entry actions to perform. It's job is
 to also update the context function pointers. Below is an example of a 
 set of function that define a SuperMario state:
 
-``` c
+```c
 static void SuperMario_onProcess(cfsm_Fsm * fsm) { /* ... */}
 static void SuperMario_onLeave(cfsm_Fsm * fsm) { /* ... */}
 static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId) { /* ...*/}
@@ -195,7 +195,7 @@ The CFSM setup phase consists of initializing ``marioFsm`` and
 then transition to Mario's start state "SmallMario". The simplified
 codes looks like this:
 
- ``` c
+ ```c
 #include "c_fsm.h"
 #include "states/small_mario.h"
 
@@ -225,7 +225,7 @@ the next event. This event is passed to the Mario CFSM by calling
 ``cfsm_event()``. <br>
 Finally the loop restarts unless QUIT was selected by the user.
 
- ``` c
+ ```c
     for(;;) 
     {
         int option;
@@ -252,7 +252,6 @@ Finally the loop restarts unless QUIT was selected by the user.
             cfsm_event(&marioFsm, option);
         }
     }
-
  ```
 
 That's it. There is no special state processing in the application 
@@ -307,7 +306,7 @@ The enter function is the only mandatory operation handler for a state
 and the only one that needs to be public. This is necessary to allow
 other modules to transition into it.
 
- ``` c
+ ```c
  void SmallMario_onEnter(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onEnter()...");
@@ -319,6 +318,7 @@ other modules to transition into it.
     fsm->onLeave = SmallMario_onLeave;
 }
  ```
+
  The enter operation gets the FSM context passed as a pointer. This
  is required to update the handler pointer or as a parameter to other
  cfsm API functions.
@@ -345,7 +345,7 @@ Our example leave operations are trivial. We have no actions to perform
 according to the Mario state machine. We just print a line to indicate
 to the user that we got called.
 
-``` c
+```c
 static void SmallMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onLeave() ...");
@@ -363,7 +363,7 @@ driven. That's why the transition logic and action where placed into
 the event operation handler. If your logic follows a polling model,
 you likely implement this in the processing operation instead.
 
-``` c
+```c
 static void SmallMario_onProcess(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onProces(): It's me, Mario!");
@@ -386,7 +386,7 @@ Mario dependent on the event. Noteworthy is the slightly more complex
 monster case. Here we also need to decrease the number of lives
 and eventually transition into dead Mario if no more are left.
 
-  ``` c
+```c
 static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
 {
     mario_updateCoins(eventId);

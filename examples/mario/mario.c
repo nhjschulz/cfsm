@@ -140,3 +140,5 @@ int mario_getLifes(void)
 
     return mario.lifes;
 }
+
+/** @} */

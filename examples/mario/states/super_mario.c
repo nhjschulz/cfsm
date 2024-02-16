@@ -118,3 +118,5 @@ static void SuperMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("SuperMario_onLeave() ...");
 }
+
+/** @} */

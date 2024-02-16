@@ -120,3 +120,5 @@ void FireMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("FireMario_onLeave() ...");
 }
+
+/** @} */

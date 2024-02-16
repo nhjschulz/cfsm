@@ -40,7 +40,8 @@ target_include_directories(cfsm_mario
 )
 target_link_libraries(cfsm_mario cfsm)
 
-add_subdirectory(doc)
+#add_subdirectory(doc)
+
 enable_testing()
 
 add_subdirectory(tests)

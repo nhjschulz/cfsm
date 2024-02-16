@@ -27,7 +27,6 @@
 /**
  * @brief  Small Mario State Handling
  *  
- * @addtogroup MarioExample
  *
  * @{
  */
@@ -122,3 +121,5 @@ static void SmallMario_onLeave(cfsm_Fsm * fsm)
 {
     puts("SmallMario_onLeave() ...");
 }
+
+/** @} */
