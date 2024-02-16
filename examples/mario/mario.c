@@ -1,3 +1,4 @@
+
 /* MIT License
  *
  * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
@@ -37,11 +38,8 @@
  *****************************************************************************/
 
 #include <stdio.h>
-#include "c_fsm.h"
 
 #include "mario.h"
-#include "states/small_mario.h"
-
 
 /******************************************************************************
  * Macros
@@ -51,6 +49,18 @@
  * Types and Classes
  *****************************************************************************/
 
+/**
+ * @brief Mario data 
+ * 
+ * Start with small mario, 3 lifes and no coins
+ */
+static MarioData mario = 
+{
+    SMALL_MARIO,
+    3,
+    0
+};
+
 /******************************************************************************
  * Prototypes
  *****************************************************************************/
@@ -59,50 +69,76 @@
  * Variables
  *****************************************************************************/
 
+/** Map event Ids to strings for printing */
+static char * variantNames[] = {
+    "SmallMario",
+    "SuperMario",
+    "CapeMario",
+    "FireMario",
+    "DeadMario"
+};
+
 /******************************************************************************
  * External functions
  *****************************************************************************/
 
-int main(int argc, char **argv)
+void mario_setVariant(MarioVariant v)
 {
-    
-    cfsm_Fsm marioFsm;
-
-    puts ("Mario cfsm example: \n");
-
-    cfsm_init(&marioFsm);
-    cfsm_transition(&marioFsm, SmallMario_onEnter);
-
-    for(;;) 
-    {
-        int option;
-
-        /* perform process cycle in current CFSM state.*/
-        cfsm_process(&marioFsm);
-
-        mario_print(); /* show Mario's data*/
-
-        printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, "
-               "4=Monster, 5=none (just process), 0=quit) : ");
-        while ((scanf("%d", &option) != 1) || (option > 5))
-        {
-            puts("invalid option");
-        }
-
-        if (QUIT == option) {
-            break;
-        }
-
-        /* process signal in current CFSM state */
-        if (NOP != option) 
-        {
-            cfsm_event(&marioFsm, option);
-        }
-    }
-
-    return 0;
+    mario.variant = v;
 }
 
-/******************************************************************************
- * Local functions
- *****************************************************************************/
+int mario_takeLife()
+{
+    if (0 != mario.lifes)
+    {
+        mario.lifes--;
+    }
+
+    return mario.lifes;
+}
+
+void mario_updateCoins(MarioEvent e)
+{
+    switch(e)
+    {
+        case MUSHROOM:
+            mario.coins += 100;
+            break;
+
+        case FEATHER:
+            mario.coins += 300;
+            break;
+
+        case FIREFLOWER:
+            mario.coins += 200;
+            break;
+
+        case MONSTER:
+            break;
+    }
+
+    if (mario.coins > 5000)
+    {
+        puts("Mario: One life up!");
+        mario.lifes += 1;
+        mario.coins -= 5000;
+    }
+}
+
+extern void mario_print(void)
+{
+    printf(
+        "Mario: Variant: %s Lifes: %d  Coins: %d\n", 
+        variantNames[mario.variant],
+        mario.lifes,
+        mario.coins);
+}
+
+int mario_getLifes(void)
+{
+    puts("Mario: Another life lost!");
+
+    return mario.lifes;
+}
+
+/** @} */

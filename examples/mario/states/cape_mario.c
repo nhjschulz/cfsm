@@ -25,7 +25,7 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  Super Mario State Handling
+ * @brief  Cape Mario State Handling
  *  
  * @addtogroup MarioExample
  *
@@ -40,7 +40,11 @@
 
 #include "mario.h"
 
-#include "dead_mario.h"
+#include "small_mario.h"
+#include "super_mario.h"
+#include "fire_mario.h"
+
+#include "cape_mario.h"
 
 /******************************************************************************
  * Macros
@@ -54,7 +58,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void DeadMario_onProcess(cfsm_Fsm * state);
+static void CapeMario_onEvent(cfsm_Fsm * state, int eventId);
+static void CapeMario_onProcess(cfsm_Fsm * state);
+static void CapeMario_onLeave(cfsm_Fsm * state);
 
 /******************************************************************************
  * Variables
@@ -64,20 +70,53 @@ static void DeadMario_onProcess(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void DeadMario_onEnter(cfsm_Fsm * fsm)
+void CapeMario_onEnter(cfsm_Fsm * fsm)
 {
-    puts("DeadMario_onEnter()...");
+    puts("CapeMario_onEnter()...");
 
-    mario_setVariant(DEAD_MARIO);
+    mario_setVariant(CAPE_MARIO);
 
-    fsm->onProcess = DeadMario_onProcess;
+    fsm->onProcess = CapeMario_onProcess;
+    fsm->onEvent = CapeMario_onEvent;
+    fsm->onLeave = CapeMario_onLeave;
 }
 
 /******************************************************************************
  * Local functions
  *****************************************************************************/
 
-static void DeadMario_onProcess(cfsm_Fsm * fsm)
+static void CapeMario_onEvent(cfsm_Fsm * fsm, int eventId)
 {
-    puts("DeadMario_onProces(): He's dead Jim!");
+    mario_updateCoins(eventId);
+
+    switch(eventId)
+    {
+        case MUSHROOM:
+            /* noop, I keep being Cape Mario*/
+            break;
+
+        case FIREFLOWER:
+            cfsm_transition(fsm, FireMario_onEnter);
+            break;
+
+        case FEATHER:
+            /* Noop, I'm already Cape Mario*/
+            break;
+
+        case MONSTER:
+            cfsm_transition(fsm, SmallMario_onEnter);
+            break;
+    }
 }
+
+static void CapeMario_onProcess(cfsm_Fsm * fsm)
+{
+    puts("CapeMario_onProces(): Look, I can fly!");
+}
+
+static void CapeMario_onLeave(cfsm_Fsm * fsm)
+{
+    puts("CapeMario_onLeave() ...");
+}
+
+/** @} */

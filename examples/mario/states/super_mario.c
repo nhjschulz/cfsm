@@ -1,4 +1,3 @@
-
 /* MIT License
  *
  * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
@@ -26,7 +25,7 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  CFSM Mario state handling example
+ * @brief  Super Mario State Handling
  *  
  * @addtogroup MarioExample
  *
@@ -40,6 +39,12 @@
 #include <stdio.h>
 
 #include "mario.h"
+#include "small_mario.h"
+#include "cape_mario.h"
+#include "fire_mario.h"
+
+#include "super_mario.h"
+
 
 /******************************************************************************
  * Macros
@@ -49,94 +54,69 @@
  * Types and Classes
  *****************************************************************************/
 
-/**
- * @brief Mario data 
- * 
- * Start with small mario, 3 lifes and no coins
- */
-static MarioData mario = 
-{
-    SMALL_MARIO,
-    3,
-    0
-};
-
 /******************************************************************************
  * Prototypes
  *****************************************************************************/
+
+static void SuperMario_onEvent(cfsm_Fsm * state, int eventId);
+static void SuperMario_onProcess(cfsm_Fsm * state);
+static void SuperMario_onLeave(cfsm_Fsm * state);
 
 /******************************************************************************
  * Variables
  *****************************************************************************/
 
-/** Map event Ids to strings for printing */
-static char * variantNames[] = {
-    "SmallMario",
-    "SuperMario",
-    "CapeMario",
-    "FireMario",
-    "DeadMario"
-};
-
 /******************************************************************************
  * External functions
  *****************************************************************************/
 
-void mario_setVariant(MarioVariant v)
+void SuperMario_onEnter(cfsm_Fsm * fsm)
 {
-    mario.variant = v;
+    puts("SuperMario_onEnter()...");
+
+    mario_setVariant(SUPER_MARIO);
+
+    fsm->onProcess = SuperMario_onProcess;
+    fsm->onEvent = SuperMario_onEvent;
+    fsm->onLeave = SuperMario_onLeave;
 }
 
-int mario_takeLife()
-{
-    if (0 != mario.lifes)
-    {
-        mario.lifes--;
-    }
+/******************************************************************************
+ * Local functions
+ *****************************************************************************/
 
-    return mario.lifes;
-}
-
-void mario_updateCoins(MarioEvent e)
+static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId)
 {
-    switch(e)
+    mario_updateCoins(eventId);
+
+    switch(eventId)
     {
         case MUSHROOM:
-            mario.coins += 100;
-            break;
-
-        case FEATHER:
-            mario.coins += 300;
+            /* noop, there is no super SuperMario*/
             break;
 
         case FIREFLOWER:
-            mario.coins += 200;
+            cfsm_transition(fsm, FireMario_onEnter);
+            break;
+
+        case FEATHER:
+            cfsm_transition(fsm, CapeMario_onEnter);
             break;
 
         case MONSTER:
+            cfsm_transition(fsm, SmallMario_onEnter);
             break;
     }
-
-    if (mario.coins > 5000)
-    {
-        puts("Mario: One life up!");
-        mario.lifes += 1;
-        mario.coins -= 5000;
-    }
 }
 
-extern void mario_print(void)
+static void SuperMario_onProcess(cfsm_Fsm * fsm)
 {
-    printf(
-        "Mario: Variant: %s Lifes: %d  Coins: %d\n", 
-        variantNames[mario.variant],
-        mario.lifes,
-        mario.coins);
+    puts("SuperMario_onProces(): It's me, SUPER Mario!");
 }
 
-int mario_getLifes(void)
+static void SuperMario_onLeave(cfsm_Fsm * fsm)
 {
-    puts("Mario: Another life lost!");
-
-    return mario.lifes;
+    puts("SuperMario_onLeave() ...");
 }
+
+/** @} */

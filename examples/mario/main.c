@@ -25,7 +25,7 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  Cape Mario State Handling
+ * @brief  CFSM Mario state handling example
  *  
  * @addtogroup MarioExample
  *
@@ -37,14 +37,11 @@
  *****************************************************************************/
 
 #include <stdio.h>
+#include "c_fsm.h"
 
 #include "mario.h"
+#include "states/small_mario.h"
 
-#include "small_mario.h"
-#include "super_mario.h"
-#include "fire_mario.h"
-
-#include "cape_mario.h"
 
 /******************************************************************************
  * Macros
@@ -58,10 +55,6 @@
  * Prototypes
  *****************************************************************************/
 
-static void CapeMario_onEvent(cfsm_Fsm * state, int eventId);
-static void CapeMario_onProcess(cfsm_Fsm * state);
-static void CapeMario_onLeave(cfsm_Fsm * state);
-
 /******************************************************************************
  * Variables
  *****************************************************************************/
@@ -70,51 +63,48 @@ static void CapeMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void CapeMario_onEnter(cfsm_Fsm * fsm)
+int main(int argc, char **argv)
 {
-    puts("CapeMario_onEnter()...");
+    
+    cfsm_Fsm marioFsm;
 
-    mario_setVariant(CAPE_MARIO);
+    puts ("Mario cfsm example: \n");
 
-    fsm->onProcess = CapeMario_onProcess;
-    fsm->onEvent = CapeMario_onEvent;
-    fsm->onLeave = CapeMario_onLeave;
+    cfsm_init(&marioFsm);
+    cfsm_transition(&marioFsm, SmallMario_onEnter);
+
+    for(;;) 
+    {
+        int option;
+
+        /* perform process cycle in current CFSM state.*/
+        cfsm_process(&marioFsm);
+
+        mario_print(); /* show Mario's data*/
+
+        printf("\nChoose Event: (1=Mushroom, 2=FireFlower, 3=feather, "
+               "4=Monster, 5=none (just process), 0=quit) : ");
+        while ((scanf("%d", &option) != 1) || (option > 5))
+        {
+            puts("invalid option");
+        }
+
+        if (QUIT == option) {
+            break;
+        }
+
+        /* process signal in current CFSM state */
+        if (NOP != option) 
+        {
+            cfsm_event(&marioFsm, option);
+        }
+    }
+
+    return 0;
 }
 
 /******************************************************************************
  * Local functions
  *****************************************************************************/
 
-static void CapeMario_onEvent(cfsm_Fsm * fsm, int eventId)
-{
-    mario_updateCoins(eventId);
-
-    switch(eventId)
-    {
-        case MUSHROOM:
-            /* noop, I keep being Cape Mario*/
-            break;
-
-        case FIREFLOWER:
-            cfsm_transition(fsm, FireMario_onEnter);
-            break;
-
-        case FEATHER:
-            /* Noop, I'm already Cape Mario*/
-            break;
-
-        case MONSTER:
-            cfsm_transition(fsm, SmallMario_onEnter);
-            break;
-    }
-}
-
-static void CapeMario_onProcess(cfsm_Fsm * fsm)
-{
-    puts("CapeMario_onProces(): Look, I can fly!");
-}
-
-static void CapeMario_onLeave(cfsm_Fsm * fsm)
-{
-    puts("CapeMario_onLeave() ...");
-}
+/** @} */

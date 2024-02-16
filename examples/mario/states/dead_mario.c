@@ -39,12 +39,8 @@
 #include <stdio.h>
 
 #include "mario.h"
-#include "small_mario.h"
-#include "cape_mario.h"
-#include "fire_mario.h"
 
-#include "super_mario.h"
-
+#include "dead_mario.h"
 
 /******************************************************************************
  * Macros
@@ -58,9 +54,7 @@
  * Prototypes
  *****************************************************************************/
 
-static void SuperMario_onEvent(cfsm_Fsm * state, int eventId);
-static void SuperMario_onProcess(cfsm_Fsm * state);
-static void SuperMario_onLeave(cfsm_Fsm * state);
+static void DeadMario_onProcess(cfsm_Fsm * state);
 
 /******************************************************************************
  * Variables
@@ -70,51 +64,22 @@ static void SuperMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void SuperMario_onEnter(cfsm_Fsm * fsm)
+void DeadMario_onEnter(cfsm_Fsm * fsm)
 {
-    puts("SuperMario_onEnter()...");
+    puts("DeadMario_onEnter()...");
 
-    mario_setVariant(SUPER_MARIO);
+    mario_setVariant(DEAD_MARIO);
 
-    fsm->onProcess = SuperMario_onProcess;
-    fsm->onEvent = SuperMario_onEvent;
-    fsm->onLeave = SuperMario_onLeave;
+    fsm->onProcess = DeadMario_onProcess;
 }
 
 /******************************************************************************
  * Local functions
  *****************************************************************************/
 
-static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId)
+static void DeadMario_onProcess(cfsm_Fsm * fsm)
 {
-    mario_updateCoins(eventId);
-
-    switch(eventId)
-    {
-        case MUSHROOM:
-            /* noop, there is no super SuperMario*/
-            break;
-
-        case FIREFLOWER:
-            cfsm_transition(fsm, FireMario_onEnter);
-            break;
-
-        case FEATHER:
-            cfsm_transition(fsm, CapeMario_onEnter);
-            break;
-
-        case MONSTER:
-            cfsm_transition(fsm, SmallMario_onEnter);
-            break;
-    }
+    puts("DeadMario_onProces(): He's dead Jim!");
 }
 
-static void SuperMario_onProcess(cfsm_Fsm * fsm)
-{
-    puts("SuperMario_onProces(): It's me, SUPER Mario!");
-}
-
-static void SuperMario_onLeave(cfsm_Fsm * fsm)
-{
-    puts("SuperMario_onLeave() ...");
-}
+/** @} */

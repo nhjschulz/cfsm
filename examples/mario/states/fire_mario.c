@@ -25,7 +25,7 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  Small Mario State Handling
+ * @brief  Fire Mario State Handling
  *  
  * @addtogroup MarioExample
  *
@@ -40,12 +40,13 @@
 
 #include "mario.h"
 
+#include "small_mario.h"
 #include "super_mario.h"
 #include "cape_mario.h"
-#include "fire_mario.h"
-#include "dead_mario.h"
 
-#include "small_mario.h"
+#include "fire_mario.h"
+
+
 
 /******************************************************************************
  * Macros
@@ -59,9 +60,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void SmallMario_onEvent(cfsm_Fsm * state, int eventId);
-static void SmallMario_onProcess(cfsm_Fsm * state);
-static void SmallMario_onLeave(cfsm_Fsm * state);
+static void FireMario_onEvent(cfsm_Fsm * state, int eventId);
+static void FireMario_onProcess(cfsm_Fsm * state);
+static void FireMario_onLeave(cfsm_Fsm * state);
 
 /******************************************************************************
  * Variables
@@ -71,33 +72,33 @@ static void SmallMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void SmallMario_onEnter(cfsm_Fsm * fsm)
+void FireMario_onEnter(cfsm_Fsm * fsm)
 {
-    puts("SmallMario_onEnter()...");
+    puts("FireMario_onEnter()...");
 
-    mario_setVariant(SMALL_MARIO);
+    mario_setVariant(FIRE_MARIO);
 
-    fsm->onProcess = SmallMario_onProcess;
-    fsm->onEvent = SmallMario_onEvent;
-    fsm->onLeave = SmallMario_onLeave;
+    fsm->onProcess = FireMario_onProcess;
+    fsm->onEvent = FireMario_onEvent;
+    fsm->onLeave = FireMario_onLeave;
 }
 
 /******************************************************************************
  * Local functions
  *****************************************************************************/
 
-static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
+void FireMario_onEvent(cfsm_Fsm * fsm, int eventId)
 {
     mario_updateCoins(eventId);
 
     switch(eventId)
     {
         case MUSHROOM:
-            cfsm_transition(fsm, SuperMario_onEnter);
+            /* noop, I keep being Fire Mario*/
             break;
 
         case FIREFLOWER:
-            cfsm_transition(fsm, FireMario_onEnter);
+            /* noop, I'm already fire Mario*/
             break;
 
         case FEATHER:
@@ -105,20 +106,19 @@ static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
             break;
 
         case MONSTER:
-            if (0 == mario_takeLife())
-            {
-                cfsm_transition(fsm, DeadMario_onEnter);
-            }
+            cfsm_transition(fsm, SmallMario_onEnter);
             break;
     }
 }
 
-static void SmallMario_onProcess(cfsm_Fsm * fsm)
+void FireMario_onProcess(cfsm_Fsm * fsm)
 {
-    puts("SmallMario_onProces(): It's me, Mario!");
+    puts("FireMario_onProces(): I throw fire balls!");
 }
 
-static void SmallMario_onLeave(cfsm_Fsm * fsm)
+void FireMario_onLeave(cfsm_Fsm * fsm)
 {
-    puts("SmallMario_onLeave() ...");
+    puts("FireMario_onLeave() ...");
 }
+
+/** @} */
