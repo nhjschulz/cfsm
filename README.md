@@ -25,7 +25,7 @@ the CFSM source code and an easy to understand example. It is build using
 [CMake](https://cmake.org). <br>
 Integration into own projects doesn't require CMake. CFSM is a single source
 and header file only. There are no external dependencies. Simply add the
-[c_fsm.c and c_fsm.h](https://github.com/nhjschulz/cfsm/tree/master/src/c_fsm)
+[c_fsm.c and c_fsm.h](https://github.com/nhjschulz/cfsm/tree/master/src)
 files into your project.
 
 ## How It Works
@@ -208,20 +208,21 @@ int main(int argc, char **argv)
 
     /* ... */
  ```
+
 Transitioning to the start state is done by providing the 
 enter operation handler for this state to the API function
-```cfsm_transition()```. CFSM then calls the leave operation
+``cfsm_transition()``. CFSM then calls the leave operation
 of the former state (if one was defined) and then calls the passed
 enter operation.
 
 The remainder of the main function is the game loop. It gives Mario
 a process operation cycle by calling 
-```cfsm_process(&marioFsm)```. The process handlers in this example
+``cfsm_process(&marioFsm)``. The process handlers in this example
 only print a message according to Mario's current state to 
 show that they had been run.<br>
 The loop then displays a menu asking to enter a key to trigger
 the next event. This event is passed to the Mario CFSM by calling 
-```cfsm_event()```. <br>
+``cfsm_event()``. <br>
 Finally the loop restarts unless QUIT was selected by the user.
 
  ``` c
@@ -333,9 +334,9 @@ The final 3 lines update the CFSM context to delegate operations
 to the SmallMario state. 
 
 Note that unused handlers don't need to be set to NULL. The 
-```cfsm_transition()``` API has done this before calling the
+``cfsm_transition()`` API has done this before calling the
 enter operation. Also the enter operation was stored during the 
-```cfsm_transition()``` call. Only the other needed handlers must be
+``cfsm_transition()`` call. Only the other needed handlers must be
  set here (if any).
 
 #### The Small Mario Leave Operation
@@ -375,7 +376,7 @@ The onEvent operation is the working horse in our example Mario state
 machine due to the fact that all transitions are event based. The 
 event signal operation is implemented as a switch over the event ids.
 
-The call to ```mario_updateCoins()``` extracts the coin awards into
+The call to ``mario_updateCoins()`` extracts the coin awards into
 a helper function. The amount of coins depend on the event, not
 on the state. Directly implementing it inside the states would cause
 code dublication.

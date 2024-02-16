@@ -101,7 +101,7 @@ void test_cfsm_version()
 {
     TEST_ASSERT_EQUAL(0, CFSM_VER_MAJOR);
     TEST_ASSERT_EQUAL(1, CFSM_VER_MINOR);
-    TEST_ASSERT_EQUAL(0, CFSM_VER_PATCH);
+    TEST_ASSERT_EQUAL(1, CFSM_VER_PATCH);
 }
 
 void test_cfsm_init_should_clear_handler()

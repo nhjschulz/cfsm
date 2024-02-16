@@ -7,38 +7,40 @@
 cmake_minimum_required(VERSION 3.11)
 set (CMAKE_C_STANDARD 99)
 
-project(c_fsm
-        VERSION 0.1.0
+project(CFSM
+        VERSION 0.1.1
         LANGUAGES C
-        DESCRIPTION "Finite State machine example"
+        DESCRIPTION "A State Design Pattern Approach for C-Programs"
         HOMEPAGE_URL "https://github.com/nhjschulz/cfsm"
 )
 
 add_library(cfsm 
-    src/c_fsm/c_fsm.c
+    src/c_fsm.c
 )
 
 target_include_directories(cfsm
-    PUBLIC "src/c_fsm"
+    PUBLIC "src"
 )
 
-add_executable(cfsm_mario
-    "src/example/main.c"
-    "src/example/mario.c"
-    "src/example/states/small_mario.c"
-    "src/example/states/super_mario.c"
-    "src/example/states/fire_mario.c"
-    "src/example/states/cape_mario.c"
-    "src/example/states/dead_mario.c"
-
-
+set (CFSM_EXAMPLE_MARIO_SRC 
+    "examples/mario/main.c"
+    "examples/mario/mario.c"
+    "examples/mario/states/small_mario.c"
+    "examples/mario/states/super_mario.c"
+    "examples/mario/states/fire_mario.c"
+    "examples/mario/states/cape_mario.c"
+    "examples/mario/states/dead_mario.c"
 )
+
+add_executable(cfsm_mario ${CFSM_EXAMPLE_MARIO_SRC} )
+
 target_include_directories(cfsm_mario
     PRIVATE "c_fsm"
-    PRIVATE "src/example"
+    PRIVATE "examples/mario"
 )
 target_link_libraries(cfsm_mario cfsm)
 
+add_subdirectory(doc)
 enable_testing()
 
 add_subdirectory(tests)
