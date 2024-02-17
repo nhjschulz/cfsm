@@ -33,9 +33,9 @@
 package "CFSM" {
     class cfsm_Ctx  {
         +cfsm_init()
-        +cfsm_transition( enterFunc: cfsm_TransitionFunction)
+        +cfsm_transition()
         +cfsm_process()
-        +cfsm_event( eventId : int)
+        +cfsm_event()
     }
 
     interface Operations <<interface>> {

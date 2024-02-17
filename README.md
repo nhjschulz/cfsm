@@ -139,6 +139,14 @@ The process() calls are not part of the transition. They show how
 the delegation of the process action changed as a result of the 
 state transition in between.
 
+## Examples
+
+The remainder of this document walks through the Mario example to
+demonstrate CFSM usage. There is also a working CFSM version of the
+Arduino blink sketch worth a look. It is available from 
+[https://github.com/nhjschulz/cfsm/tree/master/examples/UnoBlink](https://github.com/nhjschulz/cfsm/tree/master/examples/UnoBlink). This minimal example
+is suitable as a boilplate for own CFSM based application experiments.
+
 # The Mario CFSM Example
 
 In this chapter we use the CFSM pattern to simulate the life cycle of the

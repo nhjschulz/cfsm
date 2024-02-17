@@ -11,7 +11,7 @@ activate Led #LightGray
 Arduino -> Main : loop()
 Main -> Cfsm : process()
 Cfsm -> OnState : onProcess()
-alt 1second since enter of OnState
+alt 1 second since enter of OnState
     OnState -> Cfsm: transition(OffState)
     Cfsm -> OnState: onLeave()
     Cfsm <-- OnState
