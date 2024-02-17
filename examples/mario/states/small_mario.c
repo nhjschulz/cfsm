@@ -58,9 +58,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void SmallMario_onEvent(cfsm_Fsm * state, int eventId);
-static void SmallMario_onProcess(cfsm_Fsm * state);
-static void SmallMario_onLeave(cfsm_Fsm * state);
+static void SmallMario_onEvent(cfsm_Ctx * state, int eventId);
+static void SmallMario_onProcess(cfsm_Ctx * state);
+static void SmallMario_onLeave(cfsm_Ctx * state);
 
 /******************************************************************************
  * Variables
@@ -70,7 +70,7 @@ static void SmallMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void SmallMario_onEnter(cfsm_Fsm * fsm)
+void SmallMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("SmallMario_onEnter()...");
 
@@ -85,8 +85,10 @@ void SmallMario_onEnter(cfsm_Fsm * fsm)
  * Local functions
  *****************************************************************************/
 
-static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
+static void SmallMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
+    (void)fsm;
+    
     mario_updateCoins(eventId);
 
     switch(eventId)
@@ -112,13 +114,16 @@ static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
     }
 }
 
-static void SmallMario_onProcess(cfsm_Fsm * fsm)
+static void SmallMario_onProcess(cfsm_Ctx * fsm)
 {
+    (void)fsm;
+
     puts("SmallMario_onProces(): It's me, Mario!");
 }
 
-static void SmallMario_onLeave(cfsm_Fsm * fsm)
+static void SmallMario_onLeave(cfsm_Ctx * fsm)
 {
+    (void)fsm;
     puts("SmallMario_onLeave() ...");
 }
 

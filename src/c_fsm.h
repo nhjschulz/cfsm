@@ -27,7 +27,7 @@
 /**
  * @brief  CFSM Header file
  *
- * This file defines the types and functions used to implement the cfsm
+ * This file defines the types and functions used to implement the CFSM
  * pattern for finite state machines in C-language.
  *
  * Repository: https://github.com/nhjschulz/cfsm
@@ -60,20 +60,42 @@ extern "C" {
  * Types and Classes
  *****************************************************************************/
 
-struct cfsm_Fsm;
+/* forward declation for typedefs */
+struct cfsm_Ctx;
 
-typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
-typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
-typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
+/**
+ * @brief Function pointer type for enter/leave operations.
+ * 
+ */
+typedef void (*cfsm_TransitionFunction)(struct cfsm_Ctx * fsm);
 
-/** CFSM context operations */
-typedef struct cfsm_Fsm {
+/**
+ * @brief Function pointer type for event signal operation. 
+ * 
+ */
+typedef void (*cfsm_EventFunction)(struct cfsm_Ctx * fsm, int eventId);
+
+/**
+ * @brief  * @brief Function pointer type for cyclic process operation.
+ * 
+ */
+typedef void (*cfsm_ProcessFunction)(struct cfsm_Ctx * fsm);
+
+/**
+ * @brief Instance data pointer as void * to accept any pointer typ.
+ * 
+ */
+typedef void *cfsm_InstanceDataPtr;
+
+/** The CFSM context data structure 
+*/
+typedef struct cfsm_Ctx {
+    cfsm_InstanceDataPtr    ctxPtr;    /**< context instance data     */
     cfsm_TransitionFunction onEnter;   /**< operation run on enter    */
     cfsm_TransitionFunction onLeave;   /**< operation run on leave    */
     cfsm_ProcessFunction    onProcess; /**< cyclic operations         */
     cfsm_EventFunction      onEvent;   /**< report event to the state */
-} cfsm_Fsm;
-
+} cfsm_Ctx;
 
 /******************************************************************************
  * Functions
@@ -81,26 +103,33 @@ typedef struct cfsm_Fsm {
 
 /**
  * @brief Initialize the given fsm.
- *
- * @param fsm The fsm data structure
+ * 
+ * Initialize a cfsm context structure by setting all handlers to NULL
+ * and update the instance data pointer with instanceData. Instance data
+ * is used if the same operation handlers are used in multiple FSM instances.
+ * The handlers can then access the instance data to operate on the actual
+ * context.
+ * 
+ * @param fsm The fsm data structure to initialize.
+ * @param instanceData Pointer to instance data (may be NULL if unneeded).  
  * @since 0.1.0
  */
-void cfsm_init(struct cfsm_Fsm * fsm);
+void cfsm_init(cfsm_Ctx * fsm, cfsm_InstanceDataPtr instanceData);
 
  /**
   * @brief Transition given fsm to a new state
   *
   * Perform a state transition be calling the function given by enterFunc.
-  * The called function is expected to update the needed state handlers in
+  * The called function is expected to update the state handlers in
   * the state structure. Unused handlers needs not to be set.
   * Passing NULL as enterfunc triggers the leave handler for the current
-  * state and clears all handlers.
+  * state and clears all handler which stops the FSM from doing anything.
   *
   * @param fsm  The fsm data structure
   * @param enterFunc The enter function for the new fsm state (may be NULL)
   * @since 0.1.0
   */
-void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc);
+void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc);
 
 /**
  * @brief Execute a process cycle to the current fsm state
@@ -113,18 +142,18 @@ void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc);
  * @param fsm The fsm data structure
  * @since 0.1.0
  */
-void cfsm_process(struct cfsm_Fsm * fsm);
+void cfsm_process(struct cfsm_Ctx * fsm);
 
 /**
  * @brief Signal an event to the current fsm state.
  *
  * Call the onEvent handler of the current fsm state. This
- * function is expected to be called when an even shall be
+ * function is expected to be called when an event shall be
  * signaled to the current state. An event is just an
  * application defined integer id. It has no meaning to
- * the fsm itself. Events provide a method to react to
- * application events when they occure instead of polling
- * for them during  process cycles.
+ * the FSM itself. Events provide a method to react to
+ * application events when they occure, instead of polling
+ * for them during process cycles.
  *
  * An example for an event id could be a UI button press
  * to trigger a state dependend reaction.
@@ -133,7 +162,7 @@ void cfsm_process(struct cfsm_Fsm * fsm);
  * @param eventId An application defined ID to identify the event.
  * @since 0.1.0
  */
-void cfsm_event(struct cfsm_Fsm * fsm, int eventId);
+void cfsm_event(struct cfsm_Ctx * fsm, int eventId);
 
 #ifdef __cplusplus
 }

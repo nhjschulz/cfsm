@@ -55,7 +55,7 @@
 /******************************************************************************
  * Functions
  *****************************************************************************/
-void SuperMario_onEnter(cfsm_Fsm * state);
+void SuperMario_onEnter(cfsm_Ctx * state);
 
 
 #endif /* SUPER_MARIO_H */

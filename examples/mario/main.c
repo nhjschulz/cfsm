@@ -65,12 +65,14 @@
 
 int main(int argc, char **argv)
 {
+    (void)argc;
+    (void)argv;
     
-    cfsm_Fsm marioFsm;
+    cfsm_Ctx marioFsm;
 
     puts ("Mario cfsm example: \n");
 
-    cfsm_init(&marioFsm);
+    cfsm_init(&marioFsm, NULL);
     cfsm_transition(&marioFsm, SmallMario_onEnter);
 
     for(;;) 

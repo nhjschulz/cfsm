@@ -55,7 +55,7 @@
 /******************************************************************************
  * Functions
  *****************************************************************************/
-void FireMario_onEnter(cfsm_Fsm * state);
+void FireMario_onEnter(cfsm_Ctx * state);
 
 
 #endif /* FIRE_MARIO_H */

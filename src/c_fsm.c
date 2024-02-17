@@ -60,13 +60,12 @@
  * External functions
  *****************************************************************************/
 
-void cfsm_init(struct cfsm_Fsm * fsm)
+void cfsm_init(struct cfsm_Ctx * fsm, cfsm_InstanceDataPtr instanceData)
 {
-    *fsm = (cfsm_Fsm) {0, 0, 0, 0};
+    *fsm = (cfsm_Ctx) {instanceData, 0, 0, 0, 0};
 }
 
-
-void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
+void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc)
 {
     /* Call former state leave operations if present. */
     if ((cfsm_TransitionFunction)0 != fsm->onLeave)
@@ -77,7 +76,10 @@ void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
     /* Set enter function pointer and clear all other handler. They
      * get set by the enter function if needed.
      */
-    *fsm =  (cfsm_Fsm) { enterFunc, 0, 0, 0 };
+    fsm->onEnter  = enterFunc;
+    fsm->onEvent  = (cfsm_EventFunction)0;
+    fsm->onLeave  = (cfsm_TransitionFunction)0;
+    fsm->onProcess= (cfsm_ProcessFunction)0;
 
     /* Call enter function NULL checked. It might be NULL to "disable"
      * all FSM operations.
@@ -88,7 +90,7 @@ void cfsm_transition(struct cfsm_Fsm * fsm, cfsm_TransitionFunction enterFunc)
     }
 }
 
-void cfsm_process(struct cfsm_Fsm * fsm)
+void cfsm_process(struct cfsm_Ctx * fsm)
 {
     /* Delegate to state processing operation if handler is defined. */
     if ((cfsm_ProcessFunction)0 != fsm->onProcess)
@@ -97,7 +99,7 @@ void cfsm_process(struct cfsm_Fsm * fsm)
     }
 }
 
-void cfsm_event(struct cfsm_Fsm * fsm, int eventId)
+void cfsm_event(struct cfsm_Ctx * fsm, int eventId)
 {
     /* Delegate to state event processing if handler is defined. */
     if ((cfsm_EventFunction)0 != fsm->onEvent)

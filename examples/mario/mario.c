@@ -115,6 +115,10 @@ void mario_updateCoins(MarioEvent e)
 
         case MONSTER:
             break;
+        
+        case QUIT:
+        case NOP:
+            break;
     }
 
     if (mario.coins > 5000)

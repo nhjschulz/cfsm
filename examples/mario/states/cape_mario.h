@@ -55,7 +55,7 @@
 /******************************************************************************
  * Functions
  *****************************************************************************/
-void CapeMario_onEnter(cfsm_Fsm * state);
+void CapeMario_onEnter(cfsm_Ctx * state);
 
 
 #endif /* SUPER_MARIO_H */

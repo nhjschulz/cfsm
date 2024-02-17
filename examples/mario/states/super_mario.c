@@ -58,9 +58,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void SuperMario_onEvent(cfsm_Fsm * state, int eventId);
-static void SuperMario_onProcess(cfsm_Fsm * state);
-static void SuperMario_onLeave(cfsm_Fsm * state);
+static void SuperMario_onEvent(cfsm_Ctx * state, int eventId);
+static void SuperMario_onProcess(cfsm_Ctx * state);
+static void SuperMario_onLeave(cfsm_Ctx * state);
 
 /******************************************************************************
  * Variables
@@ -70,7 +70,7 @@ static void SuperMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void SuperMario_onEnter(cfsm_Fsm * fsm)
+void SuperMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("SuperMario_onEnter()...");
 
@@ -85,7 +85,7 @@ void SuperMario_onEnter(cfsm_Fsm * fsm)
  * Local functions
  *****************************************************************************/
 
-static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId)
+static void SuperMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
     mario_updateCoins(eventId);
 
@@ -109,13 +109,17 @@ static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId)
     }
 }
 
-static void SuperMario_onProcess(cfsm_Fsm * fsm)
+static void SuperMario_onProcess(cfsm_Ctx * fsm)
 {
+    (void)fsm;
+
     puts("SuperMario_onProces(): It's me, SUPER Mario!");
 }
 
-static void SuperMario_onLeave(cfsm_Fsm * fsm)
+static void SuperMario_onLeave(cfsm_Ctx * fsm)
 {
+    (void)fsm;
+    
     puts("SuperMario_onLeave() ...");
 }
 
