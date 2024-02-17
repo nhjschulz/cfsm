@@ -1,0 +1,33 @@
+@startuml CFSM stateAlias1 --> stateAlias2 : messageOrCond2 <<stereotype1>>
+autoactivate on
+
+participant Arduino
+participant Main
+participant Cfsm
+participant OnState
+participant OffState
+Actor Led
+
+participant Arduino
+participant Main
+participant Cfsm
+participant OnState
+participant OffState
+Actor Led
+
+Arduino -> Main : loop()
+Main -> Cfsm : process()
+Main <-- Cfsm
+alt 2 seconds passed since last event
+Main -> Cfsm : event(LED_ON)
+Cfsm -> OffState : onEvent(LED_ON)
+Cfsm <- OffState : transition(OnState)
+Cfsm -> OffState : onLeave()
+Cfsm <-- OffState
+Cfsm -> OnState: OnEnter()
+OnState -> Led #LightGray: turned on
+Cfsm <-- OnState
+Main <-- Cfsm
+Arduino <-- Main
+end
+@enduml

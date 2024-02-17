@@ -1,0 +1,58 @@
+@startuml State Pattern
+
+
+
+    class Main {
+        - blinkFsm : cfsm_Ctx
+        +setup()
+        +loop()
+        
+    }
+
+
+    package states {
+        class OnState {
+            +onEnter()
+            +onProcess()
+            +onLeave()
+        }
+        class OffState {
+            +onEnter()
+            +onEvent()
+            +onLeave()
+        }
+    }
+
+
+       class BlinkData  <<struct>> {
+            - ledPin : int
+            - turnOnTimeMillis : uint64_t
+        }
+
+
+package "CFSM" {
+    class cfsm_Ctx  {
+        +cfsm_init()
+        +cfsm_transition( enterFunc: cfsm_TransitionFunction)
+        +cfsm_process()
+        +cfsm_event( eventId : int)
+    }
+
+    interface Operations <<interface>> {
+        +onEnter()
+        +onLeave()
+        +onProcess()
+        +onEvent()
+    }
+
+
+cfsm_Ctx -  Operations
+OnState .u-|> Operations
+OffState  .u-|> Operations
+
+Main .l.> cfsm_Ctx  : \n\nSignal LED_ON\n every 2 seconds
+Main .> OnState : transition to\nin setup()
+
+states .> BlinkData: <<use>>
+Main .d..> BlinkData: <<use>>
+@enduml

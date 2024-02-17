@@ -1,0 +1,21 @@
+@startuml CFSM stateAlias1 --> stateAlias2 : messageOrCond2 <<stereotype1>>
+autoactivate on
+
+participant Arduino
+participant Main
+participant Cfsm
+participant OnState
+participant OffState
+Actor Led
+
+Arduino -> Main: setup()
+Main -> Cfsm : init fsm context
+Main <-- Cfsm
+Main -> Cfsm : transition(OnState)
+Cfsm -> OnState : onEnter()
+OnState -> Led #LightGray : turned on
+Cfsm <-- OnState
+Main <-- Cfsm
+Arduino <-- Main
+
+@enduml
