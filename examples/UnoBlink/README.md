@@ -1,6 +1,6 @@
 # Arduino Blink with CFSM
 
-This is a boilerplate code example for CFSM based application. 
+This is a boilerplate code example for CFSM based applications. 
 It is build on top of Arduino and implements a CFSM version of
 the "led-blink" sketch, the embedded system version of
 "hello world". It gets build using 
