@@ -1,0 +1,9 @@
+@startuml Blink State Machine
+
+state OnState
+state OffState
+
+OnState -l-> OffState: one Second\npassed
+OffState -->  OnState:  LED_ON Event
+
+[*] --> OnState
