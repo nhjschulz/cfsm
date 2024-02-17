@@ -4,6 +4,8 @@ state OnState
 state OffState
 
 OnState -l-> OffState: one Second\npassed
-OffState -->  OnState:  LED_ON Event
+OffState -->  OnState: Event\nLED_ON
 
-[*] --> OnState
+[*] -> OnState
+
+@enduml
