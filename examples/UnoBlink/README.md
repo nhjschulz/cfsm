@@ -3,8 +3,8 @@
 This is a boilerplate code example for CFSM based application. 
 It is build on top of Arduino and implements a CFSM version of
 the "led-blink" sketch, the embedded system version of
-"hello world". It build using 
-[PlatformIO](https://platformio.org/) and configured for
+"hello world". It gets build using 
+[PlatformIO](https://platformio.org/) and is configured for
 Arduino UNO. But it will run on any Arduino supported platform
 with an onboard led by updating ```platform.ini```.
 
