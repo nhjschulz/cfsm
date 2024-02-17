@@ -42,7 +42,7 @@ package "Mario Example" {
 }
 
 package "CFSM" {
-    class cfsm_Fsm  {
+    class cfsm_Ctx  {
         +cfsm_init()
         +cfsm_transition( enterFunc: cfsm_TransitionFunction)
         +cfsm_process()
@@ -57,7 +57,7 @@ package "CFSM" {
     }
 }
 
-cfsm_Fsm --  Operations
+cfsm_Ctx --  Operations
 SuperMario .u-|> Operations
 CapeMario  .u-|> Operations
 FireMario  .u-|> Operations
@@ -67,7 +67,7 @@ SmallMario .u-|> Operations
 states .> Mario : update 
 
 SmallMario <.. Main  
-Main ..> cfsm_Fsm : init as SmallMario\nprocessing and\n event signalling 
+Main ..> cfsm_Ctx : init as SmallMario\nprocessing and\n event signalling 
 
 MarioVariant .l. MarioData
 MarioEvent .r. MarioData

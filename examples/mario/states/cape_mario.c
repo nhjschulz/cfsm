@@ -58,9 +58,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void CapeMario_onEvent(cfsm_Fsm * state, int eventId);
-static void CapeMario_onProcess(cfsm_Fsm * state);
-static void CapeMario_onLeave(cfsm_Fsm * state);
+static void CapeMario_onEvent(cfsm_Ctx * state, int eventId);
+static void CapeMario_onProcess(cfsm_Ctx * state);
+static void CapeMario_onLeave(cfsm_Ctx * state);
 
 /******************************************************************************
  * Variables
@@ -70,7 +70,7 @@ static void CapeMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void CapeMario_onEnter(cfsm_Fsm * fsm)
+void CapeMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("CapeMario_onEnter()...");
 
@@ -85,8 +85,9 @@ void CapeMario_onEnter(cfsm_Fsm * fsm)
  * Local functions
  *****************************************************************************/
 
-static void CapeMario_onEvent(cfsm_Fsm * fsm, int eventId)
+static void CapeMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
+    (void)fsm;
     mario_updateCoins(eventId);
 
     switch(eventId)
@@ -109,13 +110,15 @@ static void CapeMario_onEvent(cfsm_Fsm * fsm, int eventId)
     }
 }
 
-static void CapeMario_onProcess(cfsm_Fsm * fsm)
+static void CapeMario_onProcess(cfsm_Ctx * fsm)
 {
+    (void)fsm;
     puts("CapeMario_onProces(): Look, I can fly!");
 }
 
-static void CapeMario_onLeave(cfsm_Fsm * fsm)
+static void CapeMario_onLeave(cfsm_Ctx * fsm)
 {
+    (void)fsm;
     puts("CapeMario_onLeave() ...");
 }
 

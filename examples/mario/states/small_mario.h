@@ -55,7 +55,7 @@
 /******************************************************************************
  * Functions
  *****************************************************************************/
-void SmallMario_onEnter(cfsm_Fsm * state);
+void SmallMario_onEnter(cfsm_Ctx * state);
 
 
 #endif /* SMALL_MARIO_H */

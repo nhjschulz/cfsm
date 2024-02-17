@@ -58,24 +58,33 @@ There are operations to execute
 Each of these operations is represented as a function pointer in the CFSM
 context data structure. CFSM takes care about calling leave and enter 
 operations during a state transition. The cyclic process and event signaling
-gets triggered by the application through CFSM public API. The CFSM context
-structure definition is:
+gets triggered by the application through CFSM public API.
+
+A void pointer called ```ctxPtr``` is part of the context in addition to
+the operation function pointers. This pointer is set by ```cfm_init()``` and
+can be used in an application specific way. FSM does not use it by itself.
+The ```ctxPtr``` is intended to support multiple FSM instances with the same
+handler functions. The handlers can use the pointer to access instance
+specific data.
+
+The CFSM context structure definition is:
 
 ```c
-typedef void (*cfsm_TransitionFunction)(struct cfsm_Fsm * fsm);
-typedef void (*cfsm_EventFunction)(struct cfsm_Fsm * fsm, int eventId);
-typedef void (*cfsm_ProcessFunction)(struct cfsm_Fsm * fsm);
+typedef void (*cfsm_TransitionFunction)(struct cfsm_Ctx * fsm);
+typedef void (*cfsm_EventFunction)(struct cfsm_Ctx * fsm, int eventId);
+typedef void (*cfsm_ProcessFunction)(struct cfsm_Ctx * fsm);
+typedef void *cfsm_InstanceDataPtr;
 
 /** CFSM context operations */
-typedef struct cfsm_Fsm {
+typedef struct cfsm_Ctx {
+    cfsm_InstanceDataPtr    ctxPtr;    /**< context instance data     */
     cfsm_TransitionFunction onEnter;   /**< operation run on enter    */
     cfsm_TransitionFunction onLeave;   /**< operation run on leave    */
     cfsm_ProcessFunction    onProcess; /**< cyclic operations         */
     cfsm_EventFunction      onEvent;   /**< report event to the state */
-} cfsm_Fsm;
+} cfsm_Ctx;
 
 ```
-
 
 Notes:
  * All operations in a state are optional, with the exception of the enter
@@ -98,12 +107,12 @@ to also update the context function pointers. Below is an example of a
 set of function that define a SuperMario state:
 
 ```c
-static void SuperMario_onProcess(cfsm_Fsm * fsm) { /* ... */}
-static void SuperMario_onLeave(cfsm_Fsm * fsm) { /* ... */}
-static void SuperMario_onEvent(cfsm_Fsm * fsm, int eventId) { /* ...*/}
+static void SuperMario_onProcess(cfsm_Ctx * fsm) { /* ... */}
+static void SuperMario_onLeave(cfsm_Ctx * fsm) { /* ... */}
+static void SuperMario_onEvent(cfsm_Ctx * fsm, int eventId) { /* ...*/}
 
 
-void SuperMario_onEnter(cfsm_Fsm * fsm)
+void SuperMario_onEnter(cfsm_Ctx * fsm)
 {
     fsm->onProcess = SuperMario_onProcess;
     fsm->onEvent = SuperMario_onEvent;
@@ -189,7 +198,7 @@ This is the example application component design:
 ### The Main function
 
 The main function implements the game simulation loop. It owns 
-a CFSM instance as a local cfsm_Fsm structure called ``marioFsm``.
+a CFSM instance as a local cfsm_Ctx structure called ``marioFsm``.
 
 The CFSM setup phase consists of initializing ``marioFsm`` and
 then transition to Mario's start state "SmallMario". The simplified
@@ -201,13 +210,19 @@ codes looks like this:
 
 int main(int argc, char **argv)
 {
-    cfsm_Fsm marioFsm;
+    cfsm_Ctx marioFsm;
 
-    cfsm_init(&marioFsm);
+    cfsm_init(&marioFsm, NULL);
     cfsm_transition(&marioFsm, SmallMario_onEnter);
 
     /* ... */
  ```
+
+This example doesn't use instance data and passes NULL for it
+in the call to ```cfsm_init()```. Instance data could be used to
+extend the game to support multiple players by adding
+a Luigi. We can then run two FSMs in parallel with the same
+handlers.
 
 Transitioning to the start state is done by providing the 
 enter operation handler for this state to the API function
@@ -307,7 +322,7 @@ and the only one that needs to be public. This is necessary to allow
 other modules to transition into it.
 
  ```c
- void SmallMario_onEnter(cfsm_Fsm * fsm)
+ void SmallMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("SmallMario_onEnter()...");
 
@@ -346,7 +361,7 @@ according to the Mario state machine. We just print a line to indicate
 to the user that we got called.
 
 ```c
-static void SmallMario_onLeave(cfsm_Fsm * fsm)
+static void SmallMario_onLeave(cfsm_Ctx * fsm)
 {
     puts("SmallMario_onLeave() ...");
 }
@@ -364,7 +379,7 @@ the event operation handler. If your logic follows a polling model,
 you likely implement this in the processing operation instead.
 
 ```c
-static void SmallMario_onProcess(cfsm_Fsm * fsm)
+static void SmallMario_onProcess(cfsm_Ctx * fsm)
 {
     puts("SmallMario_onProces(): It's me, Mario!");
 }
@@ -387,7 +402,7 @@ monster case. Here we also need to decrease the number of lives
 and eventually transition into dead Mario if no more are left.
 
 ```c
-static void SmallMario_onEvent(cfsm_Fsm * fsm, int eventId)
+static void SmallMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
     mario_updateCoins(eventId);
 

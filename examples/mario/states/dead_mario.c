@@ -54,7 +54,7 @@
  * Prototypes
  *****************************************************************************/
 
-static void DeadMario_onProcess(cfsm_Fsm * state);
+static void DeadMario_onProcess(cfsm_Ctx * state);
 
 /******************************************************************************
  * Variables
@@ -64,7 +64,7 @@ static void DeadMario_onProcess(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void DeadMario_onEnter(cfsm_Fsm * fsm)
+void DeadMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("DeadMario_onEnter()...");
 
@@ -77,8 +77,9 @@ void DeadMario_onEnter(cfsm_Fsm * fsm)
  * Local functions
  *****************************************************************************/
 
-static void DeadMario_onProcess(cfsm_Fsm * fsm)
+static void DeadMario_onProcess(cfsm_Ctx * fsm)
 {
+    (void)fsm;
     puts("DeadMario_onProces(): He's dead Jim!");
 }
 

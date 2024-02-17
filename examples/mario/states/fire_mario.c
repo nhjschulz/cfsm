@@ -60,9 +60,9 @@
  * Prototypes
  *****************************************************************************/
 
-static void FireMario_onEvent(cfsm_Fsm * state, int eventId);
-static void FireMario_onProcess(cfsm_Fsm * state);
-static void FireMario_onLeave(cfsm_Fsm * state);
+static void FireMario_onEvent(cfsm_Ctx * state, int eventId);
+static void FireMario_onProcess(cfsm_Ctx * state);
+static void FireMario_onLeave(cfsm_Ctx * state);
 
 /******************************************************************************
  * Variables
@@ -72,7 +72,7 @@ static void FireMario_onLeave(cfsm_Fsm * state);
  * External functions
  *****************************************************************************/
 
-void FireMario_onEnter(cfsm_Fsm * fsm)
+void FireMario_onEnter(cfsm_Ctx * fsm)
 {
     puts("FireMario_onEnter()...");
 
@@ -87,7 +87,7 @@ void FireMario_onEnter(cfsm_Fsm * fsm)
  * Local functions
  *****************************************************************************/
 
-void FireMario_onEvent(cfsm_Fsm * fsm, int eventId)
+void FireMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
     mario_updateCoins(eventId);
 
@@ -111,13 +111,17 @@ void FireMario_onEvent(cfsm_Fsm * fsm, int eventId)
     }
 }
 
-void FireMario_onProcess(cfsm_Fsm * fsm)
+void FireMario_onProcess(cfsm_Ctx * fsm)
 {
+    (void)fsm;
+
     puts("FireMario_onProces(): I throw fire balls!");
 }
 
-void FireMario_onLeave(cfsm_Fsm * fsm)
+void FireMario_onLeave(cfsm_Ctx * fsm)
 {
+    (void)fsm;
+    
     puts("FireMario_onLeave() ...");
 }
 

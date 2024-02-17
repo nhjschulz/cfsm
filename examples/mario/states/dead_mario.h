@@ -55,7 +55,7 @@
 /******************************************************************************
  * Functions
  *****************************************************************************/
-void DeadMario_onEnter(cfsm_Fsm * state);
+void DeadMario_onEnter(cfsm_Ctx * state);
 
 
 #endif /* DEAD_MARIO_H */
