@@ -27,6 +27,8 @@ Cfsm <-- OffState
 Cfsm -> OnState: OnEnter()
 OnState -> Led #LightGray: turned on
 Cfsm <-- OnState
+Cfsm --> OffState
+Cfsm <-- OffState
 Main <-- Cfsm
 Arduino <-- Main
 end

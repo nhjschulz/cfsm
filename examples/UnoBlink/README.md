@@ -1,6 +1,7 @@
 # Arduino Blink with CFSM
 
-This is a boilerplate code example for CFSM based applications. 
+This is a boilerplate code example for
+[CFSM](https://github.com/nhjschulz/cfsm) based applications. 
 It is build on top of Arduino and implements a CFSM version of
 the "led-blink" sketch, the embedded system version of
 "hello world". It gets build using 
@@ -10,9 +11,9 @@ with an onboard led by updating ```platform.ini```.
 
 ## Blinking with a State Machine
 
-The blink sketch toggles a led with a constant frequency on
-or off. This can be mapped to two FSM states, the first is
-representing "On", the second "Off". The transitions
+The blink sketch toggles a led on or off, resulting in 
+two distinct states that can be mapped to FSM states. The
+first is representing "On", the second "Off". The transitions
 between the states happen after fixed time intervals, in
 your case we use one second.
 
@@ -21,7 +22,7 @@ different transition methods for going to on or off.
 
 * The On state is entered based on an event from
   the main loop() function. This event is signaled
-  every 2 seconds
+  every 2 seconds.
 
 * The On state remains active for one second and transitions
   back to the Off state afterwards.
@@ -30,16 +31,17 @@ different transition methods for going to on or off.
 
 ## CFSM Blink Example
 
-The example is based on the Arduino template with a main module 
+The example is based on the PlatformIO Arduino template with a main module 
 implementing the ```setup()``` and ```loop()``` methods. 
-It includes CFSM as a library using the lib_deps variable in [platformio.ini](./platformio.ini).
+It includes CFSM as a library using the ```lib_deps``` variable in
+```platformio.ini```.
 
 ~~~{.ini}
 lib_deps =
     https://github.com/nhjschulz/cfsm.git@>=0.1.1
 ~~~
 
-The following  SW architecture got used:
+The example is following this SW architecture:
 
 ### Static Structure
 
