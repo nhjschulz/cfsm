@@ -15,18 +15,6 @@ project(CFSM
 )
 
 # ******************************************************************************
-# Build CFSM as a static link library which is used by example code.
-# ******************************************************************************
-
-add_library(cfsm 
-    src/c_fsm.c
-)
-
-target_include_directories(cfsm
-    PUBLIC "src"
-)
-
-# ******************************************************************************
 # Enable strict compiler warnings 
 # ******************************************************************************
  
@@ -35,9 +23,10 @@ if (MSVC)
     add_compile_options(/W4)
 else()
     # additional warnings
-    add_compile_options(-Wall -Wextra -Wpedantic)
+    add_compile_options(-Wall -Wextra -Wpedantic -save-temps=obj)
 endif()
 
+add_subdirectory(src)
 
 set (CFSM_EXAMPLE_MARIO_SRC 
     "examples/mario/main.c"
