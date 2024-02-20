@@ -1,27 +1,30 @@
 {
-    "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
-    "name": "CFSM",
-    "version": "0.1.1",
-    "description": "A State Design Pattern Approach for C-Programs",
-    "keywords": "state design pattern, FSM, C-Language",
-    "repository":
+  "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
+  "name": "CFSM",
+  "version": "0.1.1",
+  "description": "A State Design Pattern Approach for C-Programs",
+  "keywords": "state design pattern, FSM, C-Language",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhjschulz/cfsm.git"
+  },
+  "authors": [
     {
-      "type": "git",
-      "url": "https://github.com/nhjschulz/cfsm.git"
-    },
-    "authors":
-    [
-      {
-        "name": "Haju Schulz ",
-        "email": "haju@schulznorbert.de",
-        "url": "https://github.com/nhjschulz/cfsm",
-        "maintainer": true
-      }
-    ],
-    "license": "MIT",
-    "homepage": "https://nhjschulz.github.io/cfsm",
-    "dependencies": {
-    },
-    "frameworks": "*",
-    "platforms": "*"
+      "name": "Haju Schulz ",
+      "email": "haju@schulznorbert.de",
+      "url": "https://github.com/nhjschulz/cfsm",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://nhjschulz.github.io/cfsm",
+  "dependencies": {},
+  "frameworks": "*",
+  "platforms": "*",
+  "export": {
+    "include": [
+      "src/*.[ch]",
+      "doc/*.puml"
+    ]
   }
+}
