@@ -14,26 +14,26 @@ with an onboard led by updating ```platform.ini```.
 The blink sketch toggles a led on or off, resulting in 
 two distinct states that can be mapped to FSM states. The
 first is representing "On", the second "Off". The transitions
-between the states happen after fixed time intervals, in
-your case we use one second.
+between the states happen after fixed time intervals. In
+this example we use one second.
 
 To make this simple logic a bit more interesting, we use
 different transition methods for going to on or off.
 
 * The On state is entered based on an event from
-  the main loop() function. This event is signaled
+  the main ```loop()``` function. This event is signaled
   every 2 seconds.
 
-* The On state remains active for one second and transitions
-  back to the Off state afterwards.
+* The On state remains active for one second and then
+  transitions back to the Off state.
 
 ![State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/examples/UnoBlink/doc/BlinkState.puml)
 
 ## CFSM Blink Example
 
-The example is based on the PlatformIO Arduino template with a main module 
+The example is based on PlatformIO 's Arduino template with a main module 
 implementing the ```setup()``` and ```loop()``` methods. 
-It includes CFSM as a library using the ```lib_deps``` variable in
+It includes CFSM as an external library using the ```lib_deps``` variable in
 ```platformio.ini```.
 
 ~~~{.ini}
@@ -63,14 +63,15 @@ The sequence starts while CFSM is in OffState:
 
 ![Setup Sequence Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/examples/UnoBlink/doc/BlinkOffToOn.puml)
 
-Note the little difference between the transitions:
-*  OnState processes the transition inside the process operation.
-*  OffState does not use the process operation. The state works event based. That's why CFSM instantly returns on the process() request.
+Note that there is a little difference between the transitions:
+*  "On" state processes the transition inside the process operation.
+*  "Off" state does not use the process operation. The state works event based. That's why
+   CFSM instantly returns on the process() request in this state.
 
 ## Running the Example
 
 The onboard led will toggle on and off after every second
-passed when the example got flashed. Serial monitor prints
+when the example got flashed. Serial monitor prints
 will print the progress also to a serial port. The 
 output looks like this:
 
@@ -85,6 +86,4 @@ OffState: leave()
 OnState: enter()
 ...
 ~~~
-
-
 
