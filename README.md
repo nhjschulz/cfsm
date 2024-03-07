@@ -438,8 +438,9 @@ static void SmallMario_onEvent(cfsm_Ctx * fsm, int eventId)
 }
  ```
 
-This is now a good time to look into the other Mario state 
-implementations to figure out how they differ from SmallMario.
+This is now a good time to look into the other Mario [state 
+implementations](https://github.com/nhjschulz/cfsm/tree/master/examples/mario/states)
+to figure out how they differ from SmallMario.
 The DeadMario state is the most deviating one. There is no way
 back from the after live, meaning some operation handlers are
 not needed and therefore also not present at all.
