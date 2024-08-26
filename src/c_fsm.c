@@ -62,7 +62,7 @@
 
 void cfsm_init(struct cfsm_Ctx * fsm, cfsm_InstanceDataPtr instanceData)
 {
-    *fsm = (cfsm_Ctx) {instanceData, 0, 0, 0, 0};
+    *fsm = (cfsm_Ctx) {instanceData, 0, 0, 0};
 }
 
 void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc)
@@ -73,10 +73,8 @@ void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc)
         fsm->onLeave(fsm);
     }
 
-    /* Set enter function pointer and clear all other handler. They
-     * get set by the enter function if needed.
+    /* Clear all handler. They get set by the enter function if needed.
      */
-    fsm->onEnter  = enterFunc;
     fsm->onEvent  = (cfsm_EventFunction)0;
     fsm->onLeave  = (cfsm_TransitionFunction)0;
     fsm->onProcess= (cfsm_ProcessFunction)0;
@@ -84,9 +82,9 @@ void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc)
     /* Call enter function NULL checked. It might be NULL to "disable"
      * all FSM operations.
      */
-    if ((cfsm_TransitionFunction)0 != fsm->onEnter)
+    if ((cfsm_TransitionFunction)0 != enterFunc)
     {
-        fsm->onEnter(fsm);
+        enterFunc(fsm);
     }
 }
 

@@ -53,45 +53,44 @@ extern "C" {
  *****************************************************************************/
 
 #define CFSM_VER_MAJOR 0  /**< semantic versioning major  X.x.x */
-#define CFSM_VER_MINOR 1  /**< semantic versioning minor  x.X.x */
+#define CFSM_VER_MINOR 2  /**< semantic versioning minor  x.X.x */
 #define CFSM_VER_PATCH 0  /**< semantic versioning patch  x.x.X */
 
 /******************************************************************************
  * Types and Classes
  *****************************************************************************/
 
-/* forward declation for typedefs */
+/* forward declaration for typedefs */
 struct cfsm_Ctx;
 
 /**
  * @brief Function pointer type for enter/leave operations.
- * 
+ *
  */
 typedef void (*cfsm_TransitionFunction)(struct cfsm_Ctx * fsm);
 
 /**
- * @brief Function pointer type for event signal operation. 
- * 
+ * @brief Function pointer type for event signal operation.
+ *
  */
 typedef void (*cfsm_EventFunction)(struct cfsm_Ctx * fsm, int eventId);
 
 /**
  * @brief  * @brief Function pointer type for cyclic process operation.
- * 
+ *
  */
 typedef void (*cfsm_ProcessFunction)(struct cfsm_Ctx * fsm);
 
 /**
  * @brief Instance data pointer as void * to accept any pointer typ.
- * 
+ *
  */
 typedef void *cfsm_InstanceDataPtr;
 
-/** The CFSM context data structure 
+/** The CFSM context data structure
 */
 typedef struct cfsm_Ctx {
     cfsm_InstanceDataPtr    ctxPtr;    /**< context instance data     */
-    cfsm_TransitionFunction onEnter;   /**< operation run on enter    */
     cfsm_TransitionFunction onLeave;   /**< operation run on leave    */
     cfsm_ProcessFunction    onProcess; /**< cyclic operations         */
     cfsm_EventFunction      onEvent;   /**< report event to the state */
@@ -103,15 +102,15 @@ typedef struct cfsm_Ctx {
 
 /**
  * @brief Initialize the given fsm.
- * 
+ *
  * Initialize a cfsm context structure by setting all handlers to NULL
  * and update the instance data pointer with instanceData. Instance data
  * is used if the same operation handlers are used in multiple FSM instances.
  * The handlers can then access the instance data to operate on the actual
  * context.
- * 
+ *
  * @param fsm The fsm data structure to initialize.
- * @param instanceData Pointer to instance data (may be NULL if unneeded).  
+ * @param instanceData Pointer to instance data (may be NULL if unneeded).
  * @since 0.1.0
  */
 void cfsm_init(cfsm_Ctx * fsm, cfsm_InstanceDataPtr instanceData);

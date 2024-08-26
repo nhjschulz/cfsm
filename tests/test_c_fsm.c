@@ -100,8 +100,8 @@ void tearDown(void)
 void test_cfsm_version()
 {
     TEST_ASSERT_EQUAL(0, CFSM_VER_MAJOR);
-    TEST_ASSERT_EQUAL(1, CFSM_VER_MINOR);
-    TEST_ASSERT_EQUAL(1, CFSM_VER_PATCH);
+    TEST_ASSERT_EQUAL(2, CFSM_VER_MINOR);
+    TEST_ASSERT_EQUAL(0, CFSM_VER_PATCH);
 }
 
 void test_cfsm_init_should_clear_handler(void)
@@ -110,7 +110,6 @@ void test_cfsm_init_should_clear_handler(void)
 
     cfsm_init(&fsmInstance, &dummyInstanceData);
 
-    TEST_ASSERT_EQUAL_PTR(NULL, fsmInstance.onEnter);
     TEST_ASSERT_EQUAL_PTR(NULL, fsmInstance.onEvent);
     TEST_ASSERT_EQUAL_PTR(NULL, fsmInstance.onProcess);
     TEST_ASSERT_EQUAL_PTR(NULL, fsmInstance.onLeave);
@@ -131,7 +130,6 @@ void test_cfsm_init_is_safe_to_use(void)
 void test_cfsm_transition_should_set_enter_handler_only(void)
 {
     cfsm_transition(&fsmInstance, State_only_onEnter);
-    TEST_ASSERT_EQUAL_PTR(fsmInstance.onEnter, State_only_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onEvent, NULL);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onProcess, NULL);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onLeave, NULL);
@@ -181,7 +179,6 @@ void test_cfs_transition_A_B_A(void)
 {
     cfsm_transition(&fsmInstance, State_A_onEnter);
 
-    TEST_ASSERT_EQUAL_PTR(fsmInstance.onEnter, State_A_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onEvent, State_A_onEvent);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onProcess, State_A_onProcess);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onLeave, State_A_onLeave);
@@ -198,7 +195,6 @@ void test_cfs_transition_A_B_A(void)
 
     cfsm_transition(&fsmInstance, State_B_onEnter);
 
-    TEST_ASSERT_EQUAL_PTR(fsmInstance.onEnter, State_B_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onEvent, State_B_onEvent);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onProcess, State_B_onProcess);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onLeave, State_B_onLeave);
@@ -215,7 +211,6 @@ void test_cfs_transition_A_B_A(void)
 
     cfsm_transition(&fsmInstance, State_A_onEnter);
 
-    TEST_ASSERT_EQUAL_PTR(fsmInstance.onEnter, State_A_onEnter);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onEvent, State_A_onEvent);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onProcess, State_A_onProcess);
     TEST_ASSERT_EQUAL_PTR(fsmInstance.onLeave, State_A_onLeave);
