@@ -54,7 +54,7 @@ extern "C" {
 
 #define CFSM_VER_MAJOR 0  /**< semantic versioning major  X.x.x */
 #define CFSM_VER_MINOR 2  /**< semantic versioning minor  x.X.x */
-#define CFSM_VER_PATCH 0  /**< semantic versioning patch  x.x.X */
+#define CFSM_VER_PATCH 1  /**< semantic versioning patch  x.x.X */
 
 /******************************************************************************
  * Types and Classes

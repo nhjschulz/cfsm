@@ -38,7 +38,7 @@ It includes CFSM as an external library using the ```lib_deps``` variable in
 
 ~~~{.ini}
 lib_deps =
-    https://github.com/nhjschulz/cfsm.git@>=0.1.1
+    nhjschulz/CFSM@^0.2.0
 ~~~
 
 The example is following this SW architecture:

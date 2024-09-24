@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
   "name": "CFSM",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A State Design Pattern Approach for C-Programs",
   "keywords": "state design pattern, FSM, C-Language",
   "repository": {
@@ -26,5 +26,17 @@
       "src/*.[ch]",
       "doc/*.puml"
     ]
-  }
+  },
+  "examples": [
+    {
+      "name": "UnoBlink",
+      "base": "examples/UnoBlink",
+      "files": [
+          "platformio.ini",
+          "src/*.[ch]",
+          "src/states/*.[ch]",
+          "README.md"
+      ]
+    }
+  ]
 }
