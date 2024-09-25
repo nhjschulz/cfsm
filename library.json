@@ -24,7 +24,8 @@
   "export": {
     "include": [
       "src/*.[ch]",
-      "doc/*.puml"
+      "doc/*.puml",
+      "examples/UnoBlink"
     ]
   },
   "examples": [
@@ -33,8 +34,12 @@
       "base": "examples/UnoBlink",
       "files": [
           "platformio.ini",
-          "src/*.[ch]",
-          "src/states/*.[ch]",
+          "src/states/OffState.cpp",
+          "src/states/OffState.h",
+          "src/states/OnState.cpp",
+          "src/states/OnState.h",
+          "src/blinkdata.h",
+          "src/main.cpp",
           "README.md"
       ]
     }
