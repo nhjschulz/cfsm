@@ -81,9 +81,9 @@ void OffState_enter(cfsm_Ctx * fsm)
 
     Serial.println(F("OffState: enter()"));
 
-    digitalWrite(ctx->ledPin, LOW);  /* turn LED off */
+    digitalWrite(ctx->ledPin, LOW);  /* Turn LED off. */
 
-    /* register OFF state hanlders with CFSM */
+    /* Register OFF state handlers with CFSM. */
     fsm->onEvent = OffState_onEvent;
     fsm->onLeave = OffState_Leave;
 }

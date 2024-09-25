@@ -63,12 +63,12 @@ void setup()
 }
 
 /**
- * @brief Arduion loop function
+ * @brief Arduino loop function
  * 
  */
 void loop() 
 {
-  cfsm_process(&blinkFsm);  /* do work in current CFSM state */
+  cfsm_process(&blinkFsm);  /* Do work in current CFSM state */
 
   /* Turn LED on every 2 seconds by a CFSM event. */
   if ((millis() - blinkData.turnOnTimeMillis) >= 2000ull)

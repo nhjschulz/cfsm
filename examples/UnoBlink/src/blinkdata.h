@@ -39,8 +39,8 @@
  * 
  */
 typedef struct BlinkCtx {
-    int ledPin;                 /**< Arduino Pin number                 */
-    uint64_t turnOnTimeMillis;  /**< Tick time when we turned the Led on*/
+    int ledPin;                 /**< Arduino Led pin number              */
+    uint64_t turnOnTimeMillis;  /**< Tick time when we turned the Led on */
 } BlinkCtx, * BlinkCtxPtr ;
 
 /**
@@ -51,4 +51,4 @@ enum BlinkEvents {
     BLINK_EVENT_ON = 42    /**< Led turn on event ID*/
 };
 
-#endif /* SRC_C_FSM_C_FSM_H_ */
+#endif /* SRC_C_BLINKDATA_C_BLINKDATA_H_ */
