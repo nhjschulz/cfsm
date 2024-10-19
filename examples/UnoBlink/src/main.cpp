@@ -38,12 +38,12 @@
 #include "states/OnState.h"
 
 /**
- * @brief CFSM state machine instanc
+ * @brief CFSM state machine instance
  */
 static cfsm_Ctx blinkFsm;
 
 /**
- * @brief BLink application data used by the blink FSM
+ * @brief Blink application data used by the blink FSM.
  * 
  * Contains the PIN id used for led toggling.
  */
@@ -68,7 +68,7 @@ void setup()
  */
 void loop() 
 {
-  cfsm_process(&blinkFsm);  /* Do work in current CFSM state */
+  cfsm_process(&blinkFsm);  /* Do work in current CFSM state. */
 
   /* Turn LED on every 2 seconds by a CFSM event. */
   if ((millis() - blinkData.turnOnTimeMillis) >= 2000ull)

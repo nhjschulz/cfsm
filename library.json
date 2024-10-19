@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
   "name": "CFSM",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A State Design Pattern Approach for C-Programs",
   "keywords": "state design pattern, FSM, C-Language",
   "repository": {
