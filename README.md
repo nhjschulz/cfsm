@@ -2,6 +2,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![example workflow](https://github.com/nhjschulz/cfsm/actions/workflows/cmake-single-platform.yml/badge.svg)
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/nhjschulz/library/CFSM.svg)](https://registry.platformio.org/libraries/nhjschulz/CFSM)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/CFSM.svg?)](https://www.ardu-badge.com/CFSM)
 
 # CFSM -  A State Pattern Approach for C-Programs
 
