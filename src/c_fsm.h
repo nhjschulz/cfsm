@@ -53,8 +53,8 @@ extern "C" {
  *****************************************************************************/
 
 #define CFSM_VER_MAJOR 0  /**< semantic versioning major  X.x.x */
-#define CFSM_VER_MINOR 2  /**< semantic versioning minor  x.X.x */
-#define CFSM_VER_PATCH 2  /**< semantic versioning patch  x.x.X */
+#define CFSM_VER_MINOR 3  /**< semantic versioning minor  x.X.x */
+#define CFSM_VER_PATCH 0  /**< semantic versioning patch  x.x.X */
 
 /******************************************************************************
  * Types and Classes
@@ -82,7 +82,7 @@ typedef void (*cfsm_EventFunction)(struct cfsm_Ctx * fsm, int eventId);
 typedef void (*cfsm_ProcessFunction)(struct cfsm_Ctx * fsm);
 
 /**
- * @brief Instance data pointer as void * to accept any pointer typ.
+ * @brief Instance data pointer as void * to accept any pointer type.
  *
  */
 typedef void *cfsm_InstanceDataPtr;
@@ -90,10 +90,10 @@ typedef void *cfsm_InstanceDataPtr;
 /** The CFSM context data structure
 */
 typedef struct cfsm_Ctx {
-    cfsm_InstanceDataPtr    ctxPtr;    /**< context instance data     */
-    cfsm_TransitionFunction onLeave;   /**< operation run on leave    */
-    cfsm_ProcessFunction    onProcess; /**< cyclic operations         */
-    cfsm_EventFunction      onEvent;   /**< report event to the state */
+    cfsm_InstanceDataPtr    ctxPtr;    /**< Context instance data        */
+    cfsm_TransitionFunction onLeave;   /**< Operation to run on leave    */
+    cfsm_ProcessFunction    onProcess; /**< Cyclic processoperation      */
+    cfsm_EventFunction      onEvent;   /**< Report event to active state */
 } cfsm_Ctx;
 
 /******************************************************************************
@@ -116,22 +116,22 @@ typedef struct cfsm_Ctx {
 void cfsm_init(cfsm_Ctx * fsm, cfsm_InstanceDataPtr instanceData);
 
  /**
-  * @brief Transition given fsm to a new state
+  * @brief Transition given fsm to a new state.
   *
-  * Perform a state transition be calling the function given by enterFunc.
+  * Perform a state transition by calling the function given by enterFunc.
   * The called function is expected to update the state handlers in
   * the state structure. Unused handlers needs not to be set.
   * Passing NULL as enterfunc triggers the leave handler for the current
   * state and clears all handler which stops the FSM from doing anything.
   *
   * @param fsm  The fsm data structure
-  * @param enterFunc The enter function for the new fsm state (may be NULL)
+  * @param enterFunc The enter operation for the new fsm state (may be NULL)
   * @since 0.1.0
   */
 void cfsm_transition(struct cfsm_Ctx * fsm, cfsm_TransitionFunction enterFunc);
 
 /**
- * @brief Execute a process cycle to the current fsm state
+ * @brief Execute a process cycle to the current fsm state.
  *
  * Call the process handler of the current fsm state. This
  * function is expected to be called cyclicly. The function
@@ -151,8 +151,8 @@ void cfsm_process(struct cfsm_Ctx * fsm);
  * signaled to the current state. An event is just an
  * application defined integer id. It has no meaning to
  * the FSM itself. Events provide a method to react to
- * application events when they occure, instead of polling
- * for them during process cycles.
+ * application events instead of polling them during
+ * process cycles.
  *
  * An example for an event id could be a UI button press
  * to trigger a state dependend reaction.
