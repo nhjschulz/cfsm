@@ -4,7 +4,7 @@
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/nhjschulz/library/CFSM.svg)](https://registry.platformio.org/libraries/nhjschulz/CFSM)
 [![arduino-library-badge](https://www.ardu-badge.com/badge/CFSM.svg?)](https://www.ardu-badge.com/CFSM)
 
-# CFSM -  A State Pattern Approach for C-Programs
+# CFSM - A State Design Pattern for State Machines in C-Language.
 
 Finite state machines (FSM) are present in almost every non trivial program.
 Guides on how to implement them are part of many programming
