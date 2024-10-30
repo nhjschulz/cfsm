@@ -343,9 +343,9 @@ other modules to transition into it.
 }
  ```
 
- The enter operation gets the FSM context passed as a pointer. This
- is required to update the handler pointer or as a parameter to other
- cfsm API functions.
+ The enter operation gets the CFSM context passed as a pointer. This
+ is required to update the handler pointers to use the new states
+ operations.
 
  The first two lines are the actions that the enter handler performs.
  In this example it
@@ -359,14 +359,14 @@ to the SmallMario state.
 
 Note that unused handlers don't need to be set to NULL. The
 ``cfsm_transition()`` API has done this before calling the
-enter operation. Only the needed handlers must be
- set here (if any).
+enter operation. Only the needed handlers must be set here
+(if any).
 
 #### The Small Mario Leave Operation
 
 Our example leave operations are trivial. We have no actions to perform
-according to the Mario state machine. We just print a line to indicate
-to the user that we got called.
+according to the Mario state machine. They just print a line to indicate
+to the user when they got called.
 
 ```c
 static void SmallMario_onLeave(cfsm_Ctx * fsm)
@@ -377,7 +377,7 @@ static void SmallMario_onLeave(cfsm_Ctx * fsm)
 
 #### The Small Mario Process Operation
 
-Our process operations are also trivial. We just print a line
+Our process operations are also trivial. They just print a line
 that fits to the current Mario personality.
 
 In real applications you have to make a decision what to do during
@@ -450,8 +450,9 @@ not needed and therefore also not present at all.
 The CFSM pattern is surprisingly simple. There are no complex logic
 sequences or loops in CFSM. Processing boils down to a NULL checked
 function pointer call to delegate operation requests to state
-objects. This simplicity makes the pattern also usable for functional
-safety applications. The functionality is easy to test and review.
+dependend handlers. This simplicity makes the pattern also usable 
+for functional safety applications. The functionality is easy to
+test and review.
 
 ## Benefits
 
