@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,9 +38,9 @@
 
 /**
  * @brief CFSM event operation for OFF state
- * 
+ *
  * React on led ON event to transition to ON state.
- * 
+ *
  * @param fsm CFSM state machine context
  * @param eventId event ID
  */
@@ -58,9 +58,9 @@ static void OffState_onEvent(cfsm_Ctx * fsm, int eventId)
 
 /**
  * @brief CFSM state leave operation for Off state
- * 
+ *
  * Only used to print leave operation to serial log in this example.
- * 
+ *
  * @param fsm CFSM state machine context
  */
 static void OffState_Leave(struct cfsm_Ctx * fsm)
@@ -70,9 +70,9 @@ static void OffState_Leave(struct cfsm_Ctx * fsm)
 
 /**
  * @brief CFSM enter operation for OFF state
- * 
+ *
  * Turn LED off.
- * 
+ *
  * @param fsm CFSM state machine context
  */
 void OffState_enter(cfsm_Ctx * fsm)

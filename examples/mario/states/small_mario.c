@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 *******************************************************************************/
 /**
  * @brief  Small Mario State Handling
- *  
+ *
  *
  * @{
  */
@@ -88,7 +88,7 @@ void SmallMario_onEnter(cfsm_Ctx * fsm)
 static void SmallMario_onEvent(cfsm_Ctx * fsm, int eventId)
 {
     (void)fsm;
-    
+
     mario_updateCoins(eventId);
 
     switch(eventId)

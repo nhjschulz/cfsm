@@ -1,10 +1,11 @@
 @startuml Blink State Machine
 
-state OnState
-state OffState
 
-OnState -l-> OffState: one Second\npassed
-OffState -->  OnState: Event\nLED_ON
+state OnState: /enter turn on LED
+state OffState: /leave turn off LED
+
+OnState --> OffState: one Second\npassed
+OffState -->  OnState: Event(LED_ON)
 
 [*] -> OnState
 

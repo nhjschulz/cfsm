@@ -1,4 +1,5 @@
-@startuml CFSM stateAlias1 --> stateAlias2 : messageOrCond2 <<stereotype1>>
+@startuml CFSM state LED on
+
 autoactivate on
 
 participant Arduino
@@ -25,11 +26,12 @@ Cfsm <- OffState : transition(OnState)
 Cfsm -> OffState : onLeave()
 Cfsm <-- OffState
 Cfsm -> OnState: OnEnter()
-OnState -> Led #LightGray: turned on
+OnState -> Led #LightGray: turn on
 Cfsm <-- OnState
 Cfsm --> OffState
 Cfsm <-- OffState
 Main <-- Cfsm
 Arduino <-- Main
 end
+
 @enduml

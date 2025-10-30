@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,10 +37,10 @@
 #include "OffState.h"
 
 /**
- * @brief Cyclic processing CFSM operaion for ON state
- * 
- * Transition to Off state if time in state is larger/equal 1 second. 
- * 
+ * @brief Cyclic processing CFSM operation for ON state
+ *
+ * Transition to Off state if time in state is larger/equal 1 second.
+ *
  * @param fsm CFSM state machine context
  */
 static void OnState_process(cfsm_Ctx * fsm)
@@ -56,9 +56,9 @@ static void OnState_process(cfsm_Ctx * fsm)
 
 /**
  * @brief CFSM state leave operation for ON state
- * 
+ *
  * Only used to print leave operation to serial log in this example.
- * 
+ *
  * @param fsm CFSM state machine context
  */
 static void OnState_leave( cfsm_Ctx * fsm)
@@ -68,9 +68,9 @@ static void OnState_leave( cfsm_Ctx * fsm)
 
 /**
  * @brief CFSM enter operation for ON state
- * 
+ *
  * Record time and turn LED on.
- * 
+ *
  * @param fsm CFSM state machine context
  */
 void OnState_enter(cfsm_Ctx * fsm)
@@ -82,7 +82,7 @@ void OnState_enter(cfsm_Ctx * fsm)
     digitalWrite(ctx->ledPin, HIGH);  /* turn LED on            */
     ctx->turnOnTimeMillis = millis(); /* record time in context */
 
-    /* register ON state hanlders with CFSM */
+    /* register ON state handlers with CFSM */
     fsm->onProcess = OnState_process;
     fsm->onLeave = OnState_leave;
 }

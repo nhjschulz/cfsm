@@ -1,7 +1,7 @@
 
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
 *******************************************************************************/
 /**
  * @brief  CFSM Mario state handling example
- *  
+ *
  * @addtogroup MarioExample
  *
  * @{
@@ -50,11 +50,11 @@
  *****************************************************************************/
 
 /**
- * @brief Mario data 
- * 
+ * @brief Mario data
+ *
  * Start with small mario, 3 lifes and no coins
  */
-static MarioData mario = 
+static MarioData mario =
 {
     SMALL_MARIO,
     3,
@@ -115,7 +115,7 @@ void mario_updateCoins(MarioEvent e)
 
         case MONSTER:
             break;
-        
+
         case QUIT:
         case NOP:
             break;
@@ -132,7 +132,7 @@ void mario_updateCoins(MarioEvent e)
 extern void mario_print(void)
 {
     printf(
-        "Mario: Variant: %s Lifes: %d  Coins: %d\n", 
+        "Mario: Variant: %s Lifes: %d  Coins: %d\n",
         variantNames[mario.variant],
         mario.lifes,
         mario.coins);

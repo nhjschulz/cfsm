@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 *******************************************************************************/
 /**
  * @brief  Fire Mario State Handling
- *  
+ *
  * @addtogroup MarioExample
  *
  * @{
@@ -121,7 +121,7 @@ void FireMario_onProcess(cfsm_Ctx * fsm)
 void FireMario_onLeave(cfsm_Ctx * fsm)
 {
     (void)fsm;
-    
+
     puts("FireMario_onLeave() ...");
 }
 

@@ -4,5 +4,8 @@
         "dead_mario.h": "c",
         "unity.h": "c",
         "string.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "CFSM"
+    ]
 }

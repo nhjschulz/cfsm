@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 *******************************************************************************/
 /**
  * @brief  Super Mario State Handling
- *  
+ *
  * @addtogroup MarioExample
  *
  * @{
@@ -119,7 +119,7 @@ static void SuperMario_onProcess(cfsm_Ctx * fsm)
 static void SuperMario_onLeave(cfsm_Ctx * fsm)
 {
     (void)fsm;
-    
+
     puts("SuperMario_onLeave() ...");
 }
 

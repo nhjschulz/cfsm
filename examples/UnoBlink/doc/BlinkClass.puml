@@ -6,7 +6,7 @@
         - blinkFsm : cfsm_Ctx
         +setup()
         +loop()
-        
+
     }
 
 
@@ -25,8 +25,8 @@
 
 
        class BlinkData  <<struct>> {
-            - ledPin : int
-            - turnOnTimeMillis : uint64_t
+            + ledPin : int
+            + turnOnTimeMillis : uint64_t
         }
 
 
@@ -44,7 +44,7 @@ package "CFSM" {
         +onProcess()
         +onEvent()
     }
-
+}
 
 cfsm_Ctx -  Operations
 OnState .u-|> Operations
@@ -53,6 +53,9 @@ OffState  .u-|> Operations
 Main .l.> cfsm_Ctx  : \n\nSignal LED_ON\n every 2 seconds
 Main .> OnState : transition to\nin setup()
 
-states .> BlinkData: <<use>>
+OffState .> BlinkData: <<use>>
+OnState .> BlinkData: <<use>>
+
 Main .d..> BlinkData: <<use>>
+
 @enduml
