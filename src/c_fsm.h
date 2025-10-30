@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,8 +52,8 @@ extern "C" {
  * Macros
  *****************************************************************************/
 
-#define CFSM_VER_MAJOR 0  /**< semantic versioning major  X.x.x */
-#define CFSM_VER_MINOR 3  /**< semantic versioning minor  x.X.x */
+#define CFSM_VER_MAJOR 1  /**< semantic versioning major  X.x.x */
+#define CFSM_VER_MINOR 0  /**< semantic versioning minor  x.X.x */
 #define CFSM_VER_PATCH 0  /**< semantic versioning patch  x.x.X */
 
 /******************************************************************************
@@ -155,7 +155,7 @@ void cfsm_process(struct cfsm_Ctx * fsm);
  * process cycles.
  *
  * An example for an event id could be a UI button press
- * to trigger a state dependend reaction.
+ * to trigger a state dependent reaction.
  *
  * @param fsm The fsm data structure
  * @param eventId An application defined ID to identify the event.

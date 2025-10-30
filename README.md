@@ -38,6 +38,7 @@ constructs.
 ![State Pattern](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_statepattern.puml)
 
 The state pattern builds on
+
 * A context that delegates operations to one of various state objects,
   which is currently the active state.
 * A number of state objects that implement context operations to provide
@@ -52,6 +53,7 @@ use cases:
 ![State Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nhjschulz/cfsm/master/doc/cfsm_context.puml)
 
 There are operations to execute
+
    1. When the FSM "enters" a state, meaning it becomes the current active one.
    2. When the FSM "leaves" a state, meaning some other state becomes active
    3. When a cyclic processing in the active state shall take place
@@ -88,12 +90,13 @@ typedef struct cfsm_Ctx {
 ```
 
 Notes:
- * All operations in a state are optional, with the exception of the enter
-   operation. A state that cannot be entered is pointless.
- * Operations that are not defined in a state are ignored by CFSM.
- * Supporting "other" operations can be done by adding new, or
-   changing existing functions pointers in the context. CFSM
-   is primarily an implementation pattern, not a fixed function library.
+
+* All operations in a state are optional, with the exception of the enter
+  operation. A state that cannot be entered is pointless.
+* Operations that are not defined in a state are ignored by CFSM.
+* Supporting "other" operations can be done by adding new, or
+  changing existing functions pointers in the context. CFSM
+  is primarily an implementation pattern, not a fixed function library.
 
 ### CFSM States
 
@@ -128,8 +131,8 @@ void SuperMario_onEnter(cfsm_Ctx * fsm)
 State transitions are triggered by calling the ```cfsm_transition()```
 API function. The call can originate
 
-1. from the CFSM using application to enter a specific state
-2. from inside the state operation handlers
+1. From the CFSM using application to enter a specific state.
+2. From inside the state operation handlers.
 
 The following interaction diagram shows what happens during a state
 transition from state "Mario" to "SuperMario":
@@ -191,10 +194,10 @@ Here are the transitions shown as a table:
 The example uses CFSM to implement the Mario state machine in the following
 way:
 
-  * Each Mario character is a state implemented in an own C-File.
-  * The collection of items or the monster hits are modelled as events.
-  * The process operation prints a character specific message.
-  * The enter/leave operations print a message to visualize these transitions.
+* Each Mario character is a state implemented in an own C-File.
+* The collection of items or the monster hits are modelled as events.
+* The process operation prints a character specific message.
+* The enter/leave operations print a message to visualize these transitions.
 
 The main loop of the example implements a small menu where events get
 fired based on user input to simulate the game.
@@ -285,7 +288,7 @@ different state implementing modules.
 
 Here is a transcript of first game simulation steps:
 
- ```
+ ```txt
  $ cfsm_mario.exe
 (1) SmallMario_onEnter()...
 (2) SmallMario_onProces(): It's me, Mario!
@@ -350,17 +353,16 @@ other modules to transition into it.
  The first two lines are the actions that the enter handler performs.
  In this example it
 
- * prints a message to show the user it got called. In real code such
-   a call would not be there or would be using some debug logging api.
- * updates our Mario to become a small one.
+* prints a message to show the user it got called. In real code such
+  a call would not be there or would be using some debug logging pi.
+* updates our Mario to become a small one.
 
 The final 3 lines update the CFSM context to delegate operations
 to the SmallMario state.
 
 Note that unused handlers don't need to be set to NULL. The
-``cfsm_transition()`` API has done this before calling the
-enter operation. Only the needed handlers must be set here
-(if any).
+```cfsm_transition()``` API has done this before calling the enter
+operation. Only needed handlers must be set here (if any).
 
 #### The Small Mario Leave Operation
 
@@ -402,7 +404,7 @@ event signal operation is implemented as a switch over the event ids.
 The call to ``mario_updateCoins()`` extracts the coin awards into
 a helper function. The amount of coins depend on the event, not
 on the state. Directly implementing it inside the states would cause
-code dublication.
+code duplication.
 
 The individual event cases trigger a transition from small to another
 Mario dependent on the event. Noteworthy is the slightly more complex
@@ -450,7 +452,7 @@ not needed and therefore also not present at all.
 The CFSM pattern is surprisingly simple. There are no complex logic
 sequences or loops in CFSM. Processing boils down to a NULL checked
 function pointer call to delegate operation requests to state
-dependend handlers. This simplicity makes the pattern also usable 
+dependent handlers. This simplicity makes the pattern also usable
 for functional safety applications. The functionality is easy to
 test and review.
 
@@ -476,4 +478,3 @@ CFSM achieves the following benefits
    code duplication. This is usually addressed in OO Languages by introducing
    base classes for states. C-Language doesn't offer such concepts and
    CFSM does not try to mimic such OO behavior in C-language.
-

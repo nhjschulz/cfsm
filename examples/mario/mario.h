@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,10 +25,10 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  Mario CFSM example 
- * 
+ * @brief  Mario CFSM example
+ *
  * Repository: https://github.com/nhjschulz/cfsm
- *  
+ *
  * @addtogroup MarioExample
  *
  * @{
@@ -85,14 +85,14 @@ typedef struct MarioData {
 
 /**
  * @brief  Changes the variant of Mario
- * 
+ *
  * @param v the new variant
  */
 extern void mario_setVariant(MarioVariant v);
 
 /**
  * @brief Update Marios coins based on the event
- * 
+ *
  * @param e the event to get payed for
  */
 extern void mario_updateCoins(MarioEvent e);
@@ -104,7 +104,7 @@ extern void mario_print(void);
 
 /**
  * @brief Take a life from Mario
- * 
+ *
  * @return int number of remaining lifes
  */
 extern int  mario_takeLife(void);

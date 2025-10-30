@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 *******************************************************************************/
 /**
  * @brief  CFSM Mario state handling example
- *  
+ *
  * @addtogroup MarioExample
  *
  * @{
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 {
     (void)argc;
     (void)argv;
-    
+
     cfsm_Ctx marioFsm;
 
     puts ("Mario cfsm example: \n");
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
     cfsm_init(&marioFsm, NULL);
     cfsm_transition(&marioFsm, SmallMario_onEnter);
 
-    for(;;) 
+    for(;;)
     {
         int option;
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
         }
 
         /* process signal in current CFSM state */
-        if (NOP != option) 
+        if (NOP != option)
         {
             cfsm_event(&marioFsm, option);
         }

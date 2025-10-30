@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 *******************************************************************************/
 
 /**
- * @brief  Blink CFSM based Application Example for Arduino 
+ * @brief  Blink CFSM based Application Example for Arduino
  *
  * Repository: https://github.com/nhjschulz/cfsm/tree/master/examples/UnoBlink
  */
@@ -44,14 +44,14 @@ static cfsm_Ctx blinkFsm;
 
 /**
  * @brief Blink application data used by the blink FSM.
- * 
+ *
  * Contains the PIN id used for led toggling.
  */
 static struct BlinkCtx blinkData = { LED_BUILTIN, 0ull };
 
 /**
  * @brief Arduino setup function
- * 
+ *
  */
 void setup()
 {
@@ -64,9 +64,9 @@ void setup()
 
 /**
  * @brief Arduino loop function
- * 
+ *
  */
-void loop() 
+void loop()
 {
   cfsm_process(&blinkFsm);  /* Do work in current CFSM state. */
 

@@ -1,6 +1,6 @@
 /* MIT License
  *
- * Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+ * Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@
     DESCRIPTION
 *******************************************************************************/
 /**
- * @brief  Blink CFSM example: OFF State Definitons
+ * @brief  Blink CFSM example: OFF State Definitions
  *
  */
 
@@ -34,7 +34,7 @@
 
 /**
  * @brief Operation for entering LED off state
- * 
+ *
  * @param fsm FSM data structure
  */
 extern void OffState_enter(struct cfsm_Ctx * fsm);

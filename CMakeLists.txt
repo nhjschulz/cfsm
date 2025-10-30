@@ -2,7 +2,7 @@
 #
 # Implementing State pattern in C
 #
-# Copyright (C) 2024  Haju Schulz <haju@schulznorbert.de>
+# Copyright (C) 2024-2025  Haju Schulz <haju@schulznorbert.de>
 #
 cmake_minimum_required(VERSION 3.11)
 set (CMAKE_C_STANDARD 99)
@@ -15,9 +15,9 @@ project(CFSM
 )
 
 # ******************************************************************************
-# Enable strict compiler warnings 
+# Enable strict compiler warnings
 # ******************************************************************************
- 
+
 if (MSVC)
     # warning level 4
     add_compile_options(/W4)
@@ -28,7 +28,7 @@ endif()
 
 add_subdirectory(src)
 
-set (CFSM_EXAMPLE_MARIO_SRC 
+set (CFSM_EXAMPLE_MARIO_SRC
     "examples/mario/main.c"
     "examples/mario/mario.c"
     "examples/mario/states/small_mario.c"

@@ -2,7 +2,7 @@
 # Build CFSM as a static link library which is used by example code.
 # ******************************************************************************
 
-add_library(cfsm 
+add_library(cfsm
     c_fsm.c
 )
 
